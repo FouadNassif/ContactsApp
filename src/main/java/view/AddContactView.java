@@ -3,7 +3,7 @@ package view;
 import Controller.AddContactController;
 import java.awt.Font;
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
+import javax.swing.border.*;
 import javax.swing.table.*;
 
 public class AddContactView extends JFrame {
@@ -60,13 +60,15 @@ public class AddContactView extends JFrame {
 
         checkBoxPanel = new JPanel();
         checkBoxPanel.setLayout(new BoxLayout(checkBoxPanel, BoxLayout.Y_AXIS));
+        JScrollPane scrollCheckBoxPanel = new JScrollPane(checkBoxPanel);
         groupsLabel = new JLabel("Add the contact to Groups:");
+        groupsLabel.add(Box.createVerticalStrut(5));
+
         checkBoxPanel.add(groupsLabel);
         for (String group : groups) {
             checkBoxPanel.add(new JCheckBox(group));
             checkBoxPanel.add(Box.createVerticalStrut(5));
         }
-
         saveButton = new JButton("Save");
         cancelButton = new JButton("Cancel");
         buttonsPanel = new JPanel();
@@ -77,7 +79,7 @@ public class AddContactView extends JFrame {
         allPanel.setLayout(new BoxLayout(allPanel, BoxLayout.Y_AXIS));
         allPanel.add(fieldsPanel);
         allPanel.add(tablePanel);
-        allPanel.add(checkBoxPanel);
+        allPanel.add(scrollCheckBoxPanel);
         allPanel.add(buttonsPanel);
 
         mainPanel = new JPanel();
@@ -87,7 +89,7 @@ public class AddContactView extends JFrame {
         mainPanel.setBorder(new EmptyBorder(20, 10, 10, 20));
         add(mainPanel);
         setTitle("Contact View");
-        setSize(500, 450);
+        setSize(500, 460);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setVisible(true);
@@ -100,4 +102,26 @@ public class AddContactView extends JFrame {
     public JButton getSaveButton() {
         return saveButton;
     }
+
+    // Text field
+    public JTextField getFirstNameField() {
+        return fnField;
+    }
+
+    public JTextField getLastNameField() {
+        return lnField;
+    }
+
+    public JTextField getCityField() {
+        return cityField;
+    }
+
+    public DefaultTableModel getTableModel() {
+        return model;
+    }
+
+    public JTable getTable() {
+        return table;
+    }
+
 }

@@ -3,6 +3,7 @@ package view;
 import java.awt.Font;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+import javax.swing.table.*;
 
 public class ContactView extends JFrame {
 
@@ -10,8 +11,11 @@ public class ContactView extends JFrame {
 
     private JLabel title, inputLabel, title2;
     private JTextField searchInput;
-    private JPanel titlePanel, inputPanel, textAreaPanel, filterPanel, searchPanel, managePanel, mainPanel;
+    private JPanel titlePanel, inputPanel, filterPanel, searchPanel, managePanel, mainPanel;
     private JTextArea contactListBox;
+    private JTable table;
+    private String[] headers = {""};
+    private DefaultTableModel model;
 
     public ContactView() {
         title = new JLabel("Contact Management");
@@ -43,9 +47,11 @@ public class ContactView extends JFrame {
         inputPanel.add(inputLabel);
         inputPanel.add(searchInput);
 
-        contactListBox = new JTextArea(17, 30);
-        textAreaPanel = new JPanel();
-        textAreaPanel.add(new JScrollPane(contactListBox, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER));
+        model = new DefaultTableModel(headers, 0);
+        table = new JTable(model);
+        JPanel textAreaPanel = new JPanel();
+        textAreaPanel.setLayout(new BoxLayout(textAreaPanel, BoxLayout.Y_AXIS));
+        textAreaPanel.add(new JScrollPane(table));
 
         viewButton = new JButton("View");
         updateButton = new JButton("Update");
@@ -78,6 +84,14 @@ public class ContactView extends JFrame {
 
     public JButton getAddNewContactButton() {
         return addNewContactButton;
+    }
+
+    public DefaultTableModel getTableModel() {
+        return model;
+    }
+
+    public JTable getTable() {
+        return table;
     }
 
 }

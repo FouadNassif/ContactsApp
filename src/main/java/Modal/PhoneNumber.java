@@ -1,28 +1,53 @@
 package Modal;
 
-public class PhoneNumber {
+import java.io.Serializable;
 
-    private int regionCode;
-    private int phoneNumber;
+public class PhoneNumber implements Comparable, Serializable {
 
-    public PhoneNumber(int r, int p) {
+    private String regionCode;
+    private String phoneNumber;
+
+    public PhoneNumber(String r, String p) {
         regionCode = r;
         phoneNumber = p;
     }
 
-    public int getRegionCode() {
+    public String getRegionCode() {
         return regionCode;
     }
 
-    public void setRegionCode(int regionCode) {
+    public void setRegionCode(String regionCode) {
         this.regionCode = regionCode;
     }
 
-    public int getPhoneNumber() {
+    public String getPhoneNumber() {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(int phoneNumber) {
+    public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+
+    @Override
+    public String toString() {
+        return "PhoneNumber{" + "regionCode=" + regionCode + ", phoneNumber=" + phoneNumber + '}';
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        PhoneNumber pn = (PhoneNumber) o;
+        if (this.getPhoneNumber().compareTo(pn.getPhoneNumber()) > 0) {
+            return 1;
+        } else if (this.getPhoneNumber().compareTo(pn.getPhoneNumber()) < 0) {
+            return -1;
+        } else {
+            if (this.getRegionCode().compareTo(pn.getRegionCode()) > 0) {
+                return 1;
+            } else if (this.getRegionCode().compareTo(pn.getRegionCode()) < 0) {
+                return -1;
+            } else {
+                return 0;
+            }
+        }
     }
 }

@@ -16,6 +16,7 @@ public class ContactController {
                 new AddContactController(new AddContactView());
             }
         });
+
     }
 
 }
