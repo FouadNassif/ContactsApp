@@ -1,10 +1,8 @@
 package Modal;
 
-import Exception.EmptyStringException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Observable;
-import java3.nfa035_fouadnassif_2339t.UsefulFunctions;
 
 public class Contact extends Observable implements Serializable, Comparable {
 
@@ -14,16 +12,10 @@ public class Contact extends Observable implements Serializable, Comparable {
     private ArrayList<PhoneNumber> phoneNumbers;
 
     public Contact(String fName, String lName, String c) {
-        try {
-            firstName = fName;
-            lastName = lName;
-            city = c;
-            checkFields();
-            System.out.println("WW");
-            phoneNumbers = new ArrayList<>();
-        } catch (EmptyStringException ese) {
-            System.out.println(ese.getMessage());
-        }
+        firstName = fName.trim();
+        lastName = lName.trim();
+        city = c.trim();
+        phoneNumbers = new ArrayList<>();
     }
 
     public Contact() {
@@ -32,24 +24,17 @@ public class Contact extends Observable implements Serializable, Comparable {
 
     @Override
     public String toString() {
-        try {
-            checkFields();
-            return firstName + " " + lastName + " " + city;
-        } catch (EmptyStringException ese) {
-            System.out.println(ese.getMessage());
+        String s = firstName + " " + lastName;
+        if (city != null && !city.trim().isEmpty()) {
+            s += " - " + city;
         }
-        return null;
+        return s;
     }
 
     public void printPhoneNumbers() {
         for (PhoneNumber current : phoneNumbers) {
             System.out.println(current.toString());
         }
-    }
-
-    private void checkFields() throws EmptyStringException {
-        UsefulFunctions.checkString(firstName);
-        UsefulFunctions.checkString(lastName);
     }
 
     public boolean addPhoneNumber(PhoneNumber pn) {
@@ -72,7 +57,7 @@ public class Contact extends Observable implements Serializable, Comparable {
     }
 
     public void setFirstName(String firstName) {
-        this.firstName = firstName;
+        this.firstName = firstName.trim();
     }
 
     public String getLastName() {
@@ -80,7 +65,7 @@ public class Contact extends Observable implements Serializable, Comparable {
     }
 
     public void setLastName(String lastName) {
-        this.lastName = lastName;
+        this.lastName = lastName.trim();
     }
 
     public String getCity() {
@@ -88,13 +73,14 @@ public class Contact extends Observable implements Serializable, Comparable {
     }
 
     public void setCity(String ville) {
-        this.city = ville;
+        this.city = ville.trim();
     }
 
     public ArrayList<PhoneNumber> getPhoneNumbers() {
         return phoneNumbers;
     }
 
+    @Override
     public int compareTo(Object o) {
         Contact c = (Contact) o;
         if (this.getFirstName().compareTo(c.getFirstName()) > 0 && this.getLastName().compareTo(c.getLastName()) > 0) {

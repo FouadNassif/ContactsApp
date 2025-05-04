@@ -47,8 +47,17 @@ public class ContactView extends JFrame {
         inputPanel.add(inputLabel);
         inputPanel.add(searchInput);
 
-        model = new DefaultTableModel(headers, 0);
+        model = new DefaultTableModel(headers, 0) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
+
         table = new JTable(model);
+        table.setFont(new Font("SansSerif", Font.BOLD, 14));
+        table.setRowHeight(20);
+
         JPanel textAreaPanel = new JPanel();
         textAreaPanel.setLayout(new BoxLayout(textAreaPanel, BoxLayout.Y_AXIS));
         textAreaPanel.add(new JScrollPane(table));
@@ -93,5 +102,4 @@ public class ContactView extends JFrame {
     public JTable getTable() {
         return table;
     }
-
 }

@@ -1,7 +1,10 @@
 package java3.nfa035_fouadnassif_2339t;
 
 import Exception.EmptyStringException;
+import Modal.Contact;
 import java.awt.Color;
+import java.io.*;
+import java.util.ArrayList;
 import javax.swing.*;
 import javax.swing.border.*;
 
@@ -54,5 +57,49 @@ public class UsefulFunctions {
         }
         field.setBorder(b);
         return true;
+    }
+
+    // Files related Functions
+    public static ArrayList<Contact> emptyFileInList(File f) {
+        ArrayList<Contact> tempList = new ArrayList<>();
+        try {
+            FileInputStream fis = new FileInputStream(f);
+            ObjectInputStream ois = new ObjectInputStream(fis);
+
+            while (true) {
+                try {
+                    Contact contact = (Contact) ois.readObject();
+                    tempList.add(contact);
+                } catch (EOFException e) {
+                    break;
+                }
+            }
+            ois.close();
+            return tempList;
+        } catch (FileNotFoundException e) {
+            JOptionPane.showMessageDialog(null, "A error occured while saving!", "Error Message", JOptionPane.ERROR_MESSAGE);
+        } catch (IOException e1) {
+            JOptionPane.showMessageDialog(null, "A error occured while saving!", "Error Message", JOptionPane.ERROR_MESSAGE);
+        } catch (ClassNotFoundException e) {
+        }
+        return null;
+    }
+
+    public static Boolean saveToFile(ArrayList<Contact> list, File f) {
+        try {
+            FileOutputStream fos = new FileOutputStream(f);
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+            for (Contact contact : list) {
+                oos.writeObject(contact);
+            }
+            list.clear();
+            oos.close();
+            return true;
+        } catch (FileNotFoundException e) {
+            JOptionPane.showMessageDialog(null, "A error occured while saving!", "Error Message", JOptionPane.ERROR_MESSAGE);
+        } catch (IOException e1) {
+            JOptionPane.showMessageDialog(null, "A error occured while saving!", "Error Message", JOptionPane.ERROR_MESSAGE);
+        }
+        return false;
     }
 }

@@ -40,7 +40,7 @@ public class AddContactView extends JFrame {
         lnPanel.add(lnLabel);
         lnPanel.add(lnField);
 
-        cityLabel = new JLabel("First name");
+        cityLabel = new JLabel("City");
         cityField = new JTextField(20);
         cityPanel = new JPanel();
         cityPanel.add(cityLabel);

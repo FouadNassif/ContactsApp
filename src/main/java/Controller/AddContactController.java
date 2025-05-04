@@ -2,9 +2,11 @@ package Controller;
 
 import Modal.Contact;
 import Modal.PhoneNumber;
+import Observable.ContactObservable;
 import java.awt.Color;
 import java.awt.event.*;
 import java.io.*;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java3.nfa035_fouadnassif_2339t.UsefulFunctions;
 import javax.swing.*;
@@ -15,10 +17,12 @@ import view.AddContactView;
 public class AddContactController {
 
     private AddContactView addContactView;
+    private ContactObservable observable;
     private HashMap<String, String> phoneNumbers = new HashMap<>();
 
-    public AddContactController(AddContactView view) {
+    public AddContactController(AddContactView view, ContactObservable observable) {
         this.addContactView = view;
+        this.observable = observable;
 
         // Cancel Function
         addContactView.getCancelButton().addActionListener(new ActionListener() {
@@ -48,7 +52,7 @@ public class AddContactController {
             public void actionPerformed(ActionEvent e) {
 
                 if (!UsefulFunctions.checkField(fieldList, defaultBorder)) {
-                    showErrorDialogMessage();
+                    showErrorDialogMessage("A contact require a Name, Last Name and Phone Number!");
                     return;
                 }
 
@@ -57,7 +61,9 @@ public class AddContactController {
                 if (!newContact.getPhoneNumbers().isEmpty()) {
                     newContact.setFirstName(fieldList[0].getText());
                     newContact.setLastName(fieldList[1].getText());
+                    newContact.setCity(addContactView.getCityField().getText());
                     if (addContactToDB(newContact)) {
+                        observable.contactAdded(newContact);
                         addContactView.dispose();
                     }
                 }
@@ -75,7 +81,7 @@ public class AddContactController {
                         if (checkRegionPhone(regionCode.toString(), phoneNumber.toString())) {
                             hasValidPhone = true;
                             if (!newContact.addPhoneNumber(new PhoneNumber(regionCode.toString(), phoneNumber.toString()))) {
-                                JOptionPane.showMessageDialog(null, "Phone Number Already Exists!", "Error Message", JOptionPane.ERROR_MESSAGE);
+                                showErrorDialogMessage("Phone Number Already Exists!");
                             }
                         }
                     }
@@ -83,12 +89,12 @@ public class AddContactController {
 
                 if (!hasValidPhone) {
                     addContactView.getTable().setBorder(BorderFactory.createLineBorder(Color.RED, 2));
-                    showErrorDialogMessage();
+                    showErrorDialogMessage("Phone number must contain digits only. \nPlease enter a valid number.");
                 }
             }
 
-            private void showErrorDialogMessage() {
-                JOptionPane.showMessageDialog(null, "A contact require a Name, Last Name and Phone Number!", "Error Message", JOptionPane.ERROR_MESSAGE);
+            private void showErrorDialogMessage(String Message) {
+                JOptionPane.showMessageDialog(null, Message, "Error Message", JOptionPane.ERROR_MESSAGE);
             }
 
             private boolean checkRegionPhone(String rg, String pn) {
@@ -104,19 +110,10 @@ public class AddContactController {
             }
 
             private boolean addContactToDB(Contact newContact) {
-                try {
-                    File f = new File("Contacts.obj");
-                    FileOutputStream fos = new FileOutputStream(f);
-                    ObjectOutputStream oos = new ObjectOutputStream(fos);
-                    oos.writeObject(newContact);
-                    oos.close();
-                    return true;
-                } catch (FileNotFoundException e) {
-                    JOptionPane.showMessageDialog(null, "A error occured while saving!", "Error Message", JOptionPane.ERROR_MESSAGE);
-                } catch (IOException e1) {
-                    JOptionPane.showMessageDialog(null, "A error occured while saving!", "Error Message", JOptionPane.ERROR_MESSAGE);
-                }
-                return false;
+                File f = new File("Contacts.obj");
+                ArrayList<Contact> tempContactsList = UsefulFunctions.emptyFileInList(f);
+                tempContactsList.add(newContact);
+                return UsefulFunctions.saveToFile(tempContactsList, f);
             }
         }
         );
