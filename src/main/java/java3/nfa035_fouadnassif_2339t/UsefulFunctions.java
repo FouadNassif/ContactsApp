@@ -7,6 +7,7 @@ import java.io.*;
 import java.util.ArrayList;
 import javax.swing.*;
 import javax.swing.border.*;
+import javax.swing.table.DefaultTableModel;
 
 public class UsefulFunctions {
 
@@ -75,14 +76,13 @@ public class UsefulFunctions {
                 }
             }
             ois.close();
-            return tempList;
         } catch (FileNotFoundException e) {
             JOptionPane.showMessageDialog(null, "A error occured while saving!", "Error Message", JOptionPane.ERROR_MESSAGE);
         } catch (IOException e1) {
             JOptionPane.showMessageDialog(null, "A error occured while saving!", "Error Message", JOptionPane.ERROR_MESSAGE);
         } catch (ClassNotFoundException e) {
         }
-        return null;
+        return tempList;
     }
 
     public static Boolean saveToFile(ArrayList<Contact> list, File f) {
@@ -101,5 +101,12 @@ public class UsefulFunctions {
             JOptionPane.showMessageDialog(null, "A error occured while saving!", "Error Message", JOptionPane.ERROR_MESSAGE);
         }
         return false;
+    }
+
+    public static void renderTableByList(ArrayList<Contact> list, DefaultTableModel model) {
+        model.setRowCount(0);
+        for (Contact contact : list) {
+            model.addRow(new String[]{contact.toString()});
+        }
     }
 }

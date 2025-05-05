@@ -1,14 +1,14 @@
 package view;
 
-import Controller.AddContactController;
+import Modal.Group;
+import java.awt.Dimension;
 import java.awt.Font;
+import java.util.ArrayList;
 import javax.swing.*;
 import javax.swing.border.*;
 import javax.swing.table.*;
 
 public class AddContactView extends JFrame {
-
-    private AddContactController addContactController;
 
     private JLabel title, fnLabel, lnLabel, cityLabel, title2, groupsLabel;
     private JTextField fnField, lnField, cityField;
@@ -17,7 +17,7 @@ public class AddContactView extends JFrame {
     private JTable table;
     private String[] headers = {"Region Code", "Phone number"};
     private DefaultTableModel model;
-
+    private ArrayList<JCheckBox> checkBoxList = new ArrayList<>();
     private JButton saveButton, cancelButton;
 
     public AddContactView() {
@@ -52,23 +52,22 @@ public class AddContactView extends JFrame {
         fieldsPanel.add(lnPanel);
         fieldsPanel.add(cityPanel);
 
-        model = new DefaultTableModel(headers, 7);
+        model = new DefaultTableModel(headers, 6);
         table = new JTable(model);
         tablePanel = new JPanel();
         tablePanel.setLayout(new BoxLayout(tablePanel, BoxLayout.Y_AXIS));
-        tablePanel.add(new JScrollPane(table));
+        JScrollPane scrollPane = new JScrollPane(table);
+        scrollPane.setPreferredSize(new Dimension(350, 120));
+        tablePanel.add(scrollPane);
 
         checkBoxPanel = new JPanel();
         checkBoxPanel.setLayout(new BoxLayout(checkBoxPanel, BoxLayout.Y_AXIS));
         JScrollPane scrollCheckBoxPanel = new JScrollPane(checkBoxPanel);
+        scrollCheckBoxPanel.setBorder(null);
         groupsLabel = new JLabel("Add the contact to Groups:");
         groupsLabel.add(Box.createVerticalStrut(5));
-
         checkBoxPanel.add(groupsLabel);
-        for (String group : groups) {
-            checkBoxPanel.add(new JCheckBox(group));
-            checkBoxPanel.add(Box.createVerticalStrut(5));
-        }
+
         saveButton = new JButton("Save");
         cancelButton = new JButton("Cancel");
         buttonsPanel = new JPanel();
@@ -122,6 +121,19 @@ public class AddContactView extends JFrame {
 
     public JTable getTable() {
         return table;
+    }
+
+    public ArrayList<JCheckBox> getCheckBoxes() {
+        return checkBoxList;
+    }
+
+    public void renderGroups(ArrayList<Group> groups) {
+        for (Group group : groups) {
+            JCheckBox cb = new JCheckBox(group.getName());
+            checkBoxList.add(cb);
+            checkBoxPanel.add(cb);
+        }
+        checkBoxList.get(0).setSelected(true);
     }
 
 }

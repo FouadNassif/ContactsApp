@@ -1,13 +1,13 @@
 package Controller;
 
 import Modal.Contact;
+import Modal.Group;
 import Modal.PhoneNumber;
 import Observable.ContactObservable;
 import java.awt.Color;
 import java.awt.event.*;
 import java.io.*;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java3.nfa035_fouadnassif_2339t.UsefulFunctions;
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -18,11 +18,12 @@ public class AddContactController {
 
     private AddContactView addContactView;
     private ContactObservable observable;
-    private HashMap<String, String> phoneNumbers = new HashMap<>();
+    ArrayList<Group> groups = new ArrayList<>();
 
     public AddContactController(AddContactView view, ContactObservable observable) {
         this.addContactView = view;
         this.observable = observable;
+        renderGroups();
 
         // Cancel Function
         addContactView.getCancelButton().addActionListener(new ActionListener() {
@@ -50,7 +51,7 @@ public class AddContactController {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                getSelectedGroups();
                 if (!UsefulFunctions.checkField(fieldList, defaultBorder)) {
                     showErrorDialogMessage("A contact require a Name, Last Name and Phone Number!");
                     return;
@@ -58,6 +59,7 @@ public class AddContactController {
 
                 DefaultTableModel model = addContactView.getTableModel();
                 checkPhoneNumber(model);
+                getSelectedGroups();
                 if (!newContact.getPhoneNumbers().isEmpty()) {
                     newContact.setFirstName(fieldList[0].getText());
                     newContact.setLastName(fieldList[1].getText());
@@ -115,7 +117,41 @@ public class AddContactController {
                 tempContactsList.add(newContact);
                 return UsefulFunctions.saveToFile(tempContactsList, f);
             }
+
+            private void getSelectedGroups() {
+                ArrayList<JCheckBox> checkBoxList = addContactView.getCheckBoxes();
+                for (JCheckBox checkBox : checkBoxList) {
+                    if (checkBox.isSelected()) {
+                        System.out.println(checkBox.getText());
+                    }
+                }
+            }
         }
         );
+    }
+
+    private void renderGroups() {
+        groups.add(new Group("No groups", ""));
+        try {
+            File f = new File("Groups.obj");
+            FileInputStream fis = new FileInputStream(f);
+            ObjectInputStream ois = new ObjectInputStream(fis);
+
+            while (true) {
+                try {
+                    Group group = (Group) ois.readObject();
+                    groups.add(group);
+                } catch (EOFException e) {
+                    break;
+                }
+            }
+            ois.close();
+            addContactView.renderGroups(groups);
+        } catch (FileNotFoundException e) {
+            JOptionPane.showMessageDialog(null, "A error occured while saving!", "Error Message", JOptionPane.ERROR_MESSAGE);
+        } catch (IOException e1) {
+            JOptionPane.showMessageDialog(null, "A error occured while saving!", "Error Message", JOptionPane.ERROR_MESSAGE);
+        } catch (ClassNotFoundException e) {
+        }
     }
 }

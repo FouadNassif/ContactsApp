@@ -1,20 +1,16 @@
 package view;
 
+import Components.Title;
 import java.awt.*;
 import javax.swing.*;
 
 public class MainView extends JFrame {
 
-    private final JLabel title;
     private final JButton contactsButton;
     private final JButton groupsButton;
-    private final JPanel titlePanel, buttonsPanel, bluePanel, panel1, mainPanel;
+    private final JPanel buttonsPanel, bluePanel, panel1, mainPanel;
 
     public MainView() {
-        title = new JLabel("Contact Management");
-        title.setFont(new Font("SansSerif", Font.BOLD, 18));
-        titlePanel = new JPanel();
-        titlePanel.add(title);
 
         contactsButton = new JButton("Contacts");
 
@@ -34,7 +30,7 @@ public class MainView extends JFrame {
 
         mainPanel = new JPanel();
         mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.PAGE_AXIS));
-        mainPanel.add(titlePanel);
+        mainPanel.add(Title.createTitle());
         mainPanel.add(panel1);
 
         setSize(500, 400);

@@ -1,5 +1,7 @@
 package view;
 
+import Components.Title;
+import java.awt.BorderLayout;
 import java.awt.Font;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -82,12 +84,17 @@ public class ContactView extends JFrame {
         mainPanel.add(filterPanel);
         mainPanel.add(searchPanel);
         mainPanel.setBorder(new EmptyBorder(20, 10, 10, 20));
-        add(mainPanel);
+        JPanel tempPanel = new JPanel();
+        tempPanel.setLayout(new BorderLayout());
+        tempPanel.add(Title.createTitle(), BorderLayout.NORTH);
+        tempPanel.add(mainPanel, BorderLayout.CENTER);
+
+        add(tempPanel);
 
         setTitle("Contact View");
         setSize(500, 450);
         setLocationRelativeTo(null);
-        setDefaultCloseOperation(DISPOSE_ON_CLOSE); // Only closes this window
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setVisible(true);
     }
 
@@ -102,4 +109,25 @@ public class ContactView extends JFrame {
     public JTable getTable() {
         return table;
     }
+
+    public JButton getViewButton() {
+        return viewButton;
+    }
+
+    public JButton getSortByFirstNameButton() {
+        return sFNButton;
+    }
+
+    public JButton getSortByLastNameButton() {
+        return sLNButton;
+    }
+
+    public JButton getSortByCityButton() {
+        return sCityButton;
+    }
+
+    public JTextField getSearchField() {
+        return searchInput;
+    }
+
 }

@@ -1,8 +1,9 @@
 package Modal;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Group {
+public class Group implements Serializable {
 
     private String name;
     private String description;
@@ -17,6 +18,7 @@ public class Group {
     public Group(String name, String description) {
         this.name = name;
         this.description = description;
+        contactList = new ArrayList<>();
     }
 
     public Group() {
