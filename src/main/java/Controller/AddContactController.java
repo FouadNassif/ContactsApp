@@ -4,11 +4,13 @@ import Modal.Contact;
 import Modal.Group;
 import Modal.PhoneNumber;
 import Observable.ContactObservable;
+import UsefulFunctions.ErrorFunctions;
+import UsefulFunctions.FileFunctions;
+import UsefulFunctions.StylingFunctions;
 import java.awt.Color;
 import java.awt.event.*;
 import java.io.*;
 import java.util.ArrayList;
-import java3.nfa035_fouadnassif_2339t.UsefulFunctions;
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.table.DefaultTableModel;
@@ -47,13 +49,12 @@ public class AddContactController {
             JTextField[] fieldList = {addContactView.getFirstNameField(), addContactView.getLastNameField()};
             Border defaultBorder = new JTextField().getBorder();
             private Contact newContact = new Contact();
-            boolean created = false;
 
             @Override
             public void actionPerformed(ActionEvent e) {
                 getSelectedGroups();
-                if (!UsefulFunctions.checkField(fieldList, defaultBorder)) {
-                    showErrorDialogMessage("A contact require a Name, Last Name and Phone Number!");
+                if (!StylingFunctions.checkField(fieldList, defaultBorder)) {
+                    ErrorFunctions.showErrorDialogMessage("A contact require a Name, Last Name and Phone Number!", "Error Message");
                     return;
                 }
 
@@ -83,7 +84,7 @@ public class AddContactController {
                         if (checkRegionPhone(regionCode.toString(), phoneNumber.toString())) {
                             hasValidPhone = true;
                             if (!newContact.addPhoneNumber(new PhoneNumber(regionCode.toString(), phoneNumber.toString()))) {
-                                showErrorDialogMessage("Phone Number Already Exists!");
+                                ErrorFunctions.showErrorDialogMessage("Phone Number Already Exists!", "Error Message");
                             }
                         }
                     }
@@ -91,12 +92,8 @@ public class AddContactController {
 
                 if (!hasValidPhone) {
                     addContactView.getTable().setBorder(BorderFactory.createLineBorder(Color.RED, 2));
-                    showErrorDialogMessage("Phone number must contain digits only. \nPlease enter a valid number.");
+                    ErrorFunctions.showErrorDialogMessage("Phone number must contain digits only. \nPlease enter a valid number.", "Error Message");
                 }
-            }
-
-            private void showErrorDialogMessage(String Message) {
-                JOptionPane.showMessageDialog(null, Message, "Error Message", JOptionPane.ERROR_MESSAGE);
             }
 
             private boolean checkRegionPhone(String rg, String pn) {
@@ -113,9 +110,9 @@ public class AddContactController {
 
             private boolean addContactToDB(Contact newContact) {
                 File f = new File("Contacts.obj");
-                ArrayList<Contact> tempContactsList = UsefulFunctions.emptyFileInList(f);
+                ArrayList<Contact> tempContactsList = FileFunctions.emptyFileInList(f);
                 tempContactsList.add(newContact);
-                return UsefulFunctions.saveToFile(tempContactsList, f);
+                return FileFunctions.saveToFile(tempContactsList, f);
             }
 
             private void getSelectedGroups() {

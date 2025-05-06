@@ -3,6 +3,7 @@ Controller\ContactController$2.class
 Modal\Contact.class
 Controller\MainController.class
 view\ContactView$1.class
+Controller\ContactController$7.class
 Controller\ContactDetailsController.class
 Observable\ContactObservable.class
 Modal\Group.class
@@ -10,11 +11,15 @@ Controller\ContactController$5.class
 Sorting\ContactSorter.class
 Controller\MainController$1.class
 view\ContactView.class
+UsefulFunctions\StylingFunctions.class
 Controller\AddContactController$1.class
 java3\nfa035_fouadnassif_2339t\UsefulFunctions.class
 Sorting\SortByLastName.class
 Controller\AddContactController.class
 Controller\AddContactController$2.class
+Controller\ContactDetailsController$1.class
+UsefulFunctions\ErrorFunctions.class
+UsefulFunctions\TableFunctions.class
 view\AddContactView.class
 Controller\ContactController$3.class
 Modal\PhoneNumber.class
@@ -24,6 +29,7 @@ Components\Title.class
 Controller\ContactController$6.class
 Controller\ContactController$4.class
 Controller\ContactController.class
+UsefulFunctions\FileFunctions.class
 view\MainView.class
 Exception\EmptyStringException.class
 Controller\ContactController$1.class

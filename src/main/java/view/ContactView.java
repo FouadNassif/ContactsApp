@@ -14,7 +14,6 @@ public class ContactView extends JFrame {
     private JLabel title, inputLabel, title2;
     private JTextField searchInput;
     private JPanel titlePanel, inputPanel, filterPanel, searchPanel, managePanel, mainPanel;
-    private JTextArea contactListBox;
     private JTable table;
     private String[] headers = {""};
     private DefaultTableModel model;
@@ -59,6 +58,7 @@ public class ContactView extends JFrame {
         table = new JTable(model);
         table.setFont(new Font("SansSerif", Font.BOLD, 14));
         table.setRowHeight(20);
+        table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
         JPanel textAreaPanel = new JPanel();
         textAreaPanel.setLayout(new BoxLayout(textAreaPanel, BoxLayout.Y_AXIS));
@@ -82,8 +82,9 @@ public class ContactView extends JFrame {
         mainPanel = new JPanel();
         mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.LINE_AXIS));
         mainPanel.add(filterPanel);
+        mainPanel.add(Box.createHorizontalStrut(ITEMS_GAP));
         mainPanel.add(searchPanel);
-        mainPanel.setBorder(new EmptyBorder(20, 10, 10, 20));
+        mainPanel.setBorder(new EmptyBorder(20, 20, 20, 20));
         JPanel tempPanel = new JPanel();
         tempPanel.setLayout(new BorderLayout());
         tempPanel.add(Title.createTitle(), BorderLayout.NORTH);
@@ -92,7 +93,7 @@ public class ContactView extends JFrame {
         add(tempPanel);
 
         setTitle("Contact View");
-        setSize(500, 450);
+        setSize(520, 450);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setVisible(true);
@@ -112,6 +113,14 @@ public class ContactView extends JFrame {
 
     public JButton getViewButton() {
         return viewButton;
+    }
+
+    public JButton getUpdateButton() {
+        return updateButton;
+    }
+
+    public JButton getDeleteButton() {
+        return deleteButton;
     }
 
     public JButton getSortByFirstNameButton() {
