@@ -82,13 +82,12 @@ public class ContactController implements Observer {
         contactView.getViewButton().addActionListener(new ActionListener() {
 
             public void actionPerformed(ActionEvent e) {
-                String selectedContact = TableFunctions.getSelectedRow(contactView.getTable(), "Please select a contact to View!");
-                if (selectedContact != null) {
-                    selectedContact = selectedContact.substring(0, selectedContact.indexOf(" ")).trim();
-                    for (Contact c : contactsList) {
-                        if (c.getFirstName().equals(selectedContact)) {
-                            new ContactDetailsController(new ContactDetailsView(c));
-                        }
+                String selectedRow = TableFunctions.getSelectedRow(contactView.getTable(), "Please select a contact to View!");
+                if (selectedRow != null) {
+
+                    Contact selectedContact = viewContact(selectedRow);
+                    if (selectedContact != null) {
+                        new ContactDetailsController(new ContactDetailsView(selectedContact));
                     }
                 }
             }
@@ -169,9 +168,22 @@ public class ContactController implements Observer {
         renderContacts();
     }
 
+    private Contact viewContact(String s) {
+        if (s.contains(" - ")) {
+            s = s.substring(0, s.indexOf(" - ")).trim();
+        } else {
+            s = s.trim();
+        }
+        for (Contact contact : contactsList) {
+            if (s.contains(contact.getFirstName()) && s.contains(contact.getLastName())) {
+                return contact;
+            }
+        }
+        return null;
+    }
+
     @Override
     public void update(Observable o, Object arg) {
         renderContacts();
     }
-
 }

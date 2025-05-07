@@ -21,6 +21,7 @@ public class AddContactController {
     private AddContactView addContactView;
     private ContactObservable observable;
     ArrayList<Group> groups = new ArrayList<>();
+    File contactsFile = new File("Contacts.obj");
 
     public AddContactController(AddContactView view, ContactObservable observable) {
         this.addContactView = view;
@@ -52,7 +53,6 @@ public class AddContactController {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                getSelectedGroups();
                 if (!StylingFunctions.checkField(fieldList, defaultBorder)) {
                     ErrorFunctions.showErrorDialogMessage("A contact require a Name, Last Name and Phone Number!", "Error Message");
                     return;
@@ -65,10 +65,13 @@ public class AddContactController {
                     newContact.setFirstName(fieldList[0].getText());
                     newContact.setLastName(fieldList[1].getText());
                     newContact.setCity(addContactView.getCityField().getText());
-                    if (addContactToDB(newContact)) {
-                        observable.contactAdded(newContact);
-                        addContactView.dispose();
+                    if (!checkDuplicateContacts(newContact)) {
+                        if (addContactToDB(newContact)) {
+                            observable.contactAdded(newContact);
+                            addContactView.dispose();
+                        }
                     }
+
                 }
             }
 
@@ -108,11 +111,35 @@ public class AddContactController {
                 return true;
             }
 
+            private boolean checkDuplicateContacts(Contact newContact) {
+                ArrayList<Contact> contactList = FileFunctions.emptyFileInList(contactsFile);
+                boolean sameName = false;
+                for (Contact existingContact : contactList) {
+                    sameName = existingContact.getFirstName().equalsIgnoreCase(newContact.getFirstName())
+                            && existingContact.getLastName().equalsIgnoreCase(newContact.getLastName());
+
+                    if (sameName) {
+                        for (PhoneNumber newPN : newContact.getPhoneNumbers()) {
+                            for (PhoneNumber existingPN : existingContact.getPhoneNumbers()) {
+                                if (newPN.compareTo(existingPN) == 0) {
+                                    ErrorFunctions.showErrorDialogMessage("Duplicate contact: Same name and phone number!", "Error Message");
+                                    return true;
+                                }
+                            }
+                        }
+                    }
+                }
+                if (sameName) {
+                    ErrorFunctions.showErrorDialogMessage("Duplicate contact: Same name", "Error Message");
+                    return true;
+                }
+                return false;
+            }
+
             private boolean addContactToDB(Contact newContact) {
-                File f = new File("Contacts.obj");
-                ArrayList<Contact> tempContactsList = FileFunctions.emptyFileInList(f);
+                ArrayList<Contact> tempContactsList = FileFunctions.emptyFileInList(contactsFile);
                 tempContactsList.add(newContact);
-                return FileFunctions.saveToFile(tempContactsList, f);
+                return FileFunctions.saveToFile(tempContactsList, contactsFile);
             }
 
             private void getSelectedGroups() {
