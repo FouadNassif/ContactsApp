@@ -3,13 +3,13 @@ package Controller;
 import Modal.Contact;
 import Observable.ContactObservable;
 import Sorting.ContactSorter;
+import UsefulFunctions.ErrorFunctions;
 import UsefulFunctions.FileFunctions;
 import UsefulFunctions.TableFunctions;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.Observable;
 import java.util.Observer;
 import javax.swing.JOptionPane;
@@ -26,6 +26,7 @@ public class ContactController implements Observer {
     private ContactObservable observable = new ContactObservable();
     private ArrayList<Contact> contactsList = new ArrayList<>();
     ArrayList<Contact> searchedContact = new ArrayList<Contact>();
+    ArrayList<Contact> renderContactList = new ArrayList<Contact>();
 
     public ContactController(ContactView view) {
         this.contactView = view;
@@ -39,21 +40,27 @@ public class ContactController implements Observer {
 
         contactView.getSortByFirstNameButton().addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                renderContactList.clear();
                 ArrayList<Contact> sorted = ContactSorter.sortByFirstName(contactsList);
+                renderContactList.addAll(sorted);
                 TableFunctions.renderTableByList(sorted, contactView.getTableModel());
             }
         });
 
         contactView.getSortByLastNameButton().addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                renderContactList.clear();
                 ArrayList<Contact> sorted = ContactSorter.sortByLastName(contactsList);
+                renderContactList.addAll(sorted);
                 TableFunctions.renderTableByList(sorted, contactView.getTableModel());
             }
         });
 
         contactView.getSortByCityButton().addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                renderContactList.clear();
                 ArrayList<Contact> sorted = ContactSorter.sortByCity(contactsList);
+                renderContactList.addAll(sorted);
                 TableFunctions.renderTableByList(sorted, contactView.getTableModel());
             }
         });
@@ -82,13 +89,12 @@ public class ContactController implements Observer {
         contactView.getViewButton().addActionListener(new ActionListener() {
 
             public void actionPerformed(ActionEvent e) {
-                String selectedRow = TableFunctions.getSelectedRow(contactView.getTable(), "Please select a contact to View!");
-                if (selectedRow != null) {
-
-                    Contact selectedContact = viewContact(selectedRow);
-                    if (selectedContact != null) {
-                        new ContactDetailsController(new ContactDetailsView(selectedContact));
-                    }
+                int rowIndex = contactView.getTable().getSelectedRow();
+                if (rowIndex != -1) {
+                    System.out.println(renderContactList.get(rowIndex).toString());
+                    new ContactDetailsController(new ContactDetailsView(renderContactList.get(rowIndex)));
+                } else {
+                    ErrorFunctions.showErrorDialogMessage("Please select a contact to View!", "Error Message");
                 }
             }
         }
@@ -113,6 +119,7 @@ public class ContactController implements Observer {
     private void renderContacts() {
         contactView.getTableModel().setRowCount(0);
         contactsList.clear();
+        renderContactList.clear();
         try {
             File f = new File("Contacts.obj");
             FileInputStream fis = new FileInputStream(f);
@@ -121,13 +128,12 @@ public class ContactController implements Observer {
                 try {
                     Contact contact = (Contact) ois.readObject();
                     contactsList.add(contact);
+                    renderContactList.add(contact);
                     contactView.getTableModel().addRow(new String[]{contact.toString()});
                 } catch (EOFException e) {
                     break;
                 }
-
             }
-
             ois.close();
             fis.close();
         } catch (FileNotFoundException e) {
@@ -137,6 +143,7 @@ public class ContactController implements Observer {
 
     private void searchContact(String s) {
         searchedContact.clear();
+        renderContactList.clear();
         for (Contact contact : contactsList) {
             if (contact.getFirstName().toLowerCase().startsWith(s.toLowerCase())) {
                 searchedContact.add(contact);
@@ -147,42 +154,22 @@ public class ContactController implements Observer {
             contactView.getTableModel().addRow(new String[]{"No Contact Found!"});
             return;
         }
+        renderContactList.addAll(searchedContact);
         TableFunctions.renderTableByList(searchedContact, contactView.getTableModel());
     }
 
     private void deleteContact() {
-        String selectedRow = contactView.getTable().getValueAt(contactView.getTable().getSelectedRow(), 0).toString();
-
-        selectedRow = selectedRow.substring(0, selectedRow.indexOf(" ")).trim();
-
-        Iterator<Contact> iterator = contactsList.iterator();
-        while (iterator.hasNext()) {
-            Contact c = iterator.next();
-            if (c.getFirstName().equals(selectedRow)) {
-                iterator.remove();
-            }
+        int selectedRow = contactView.getTable().getSelectedRow();
+        if (selectedRow != -1) {
+            contactsList.remove(renderContactList.get(selectedRow));
+            ArrayList<Contact> tempList = new ArrayList<Contact>(contactsList);
+            FileFunctions.saveToFile(tempList, new File("Contacts.obj"));
+            renderContacts();
         }
-
-        ArrayList<Contact> tempList = new ArrayList<Contact>(contactsList);
-        FileFunctions.saveToFile(tempList, new File("Contacts.obj"));
-        renderContacts();
-    }
-
-    private Contact viewContact(String s) {
-        if (s.contains(" - ")) {
-            s = s.substring(0, s.indexOf(" - ")).trim();
-        } else {
-            s = s.trim();
-        }
-        for (Contact contact : contactsList) {
-            if (s.contains(contact.getFirstName()) && s.contains(contact.getLastName())) {
-                return contact;
-            }
-        }
-        return null;
     }
 
     @Override
+
     public void update(Observable o, Object arg) {
         renderContacts();
     }

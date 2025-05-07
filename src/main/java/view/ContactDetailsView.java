@@ -23,15 +23,29 @@ public class ContactDetailsView extends JFrame {
 
         fieldsPanel = new JPanel();
         fieldsPanel.setLayout(new BoxLayout(fieldsPanel, BoxLayout.Y_AXIS));
-        for (String s : inputsLabel) {
-            JTextField field = new JTextField(20);
-            field.setText(contact.getFirstName());
-            field.setEditable(false);
-            JPanel tempPanel = new JPanel();
-            tempPanel.add(new JLabel(s));
-            tempPanel.add(field);
-            fieldsPanel.add(tempPanel);
-        }
+        JTextField firstNameField = new JTextField(20);
+        firstNameField.setText(contact.getFirstName());
+        firstNameField.setEditable(false);
+        JPanel firstNamePanel = new JPanel();
+        firstNamePanel.add(new JLabel("First Name"));
+        firstNamePanel.add(firstNameField);
+        fieldsPanel.add(firstNamePanel);
+
+        JTextField lastNameField = new JTextField(20);
+        lastNameField.setText(contact.getLastName());
+        lastNameField.setEditable(false);
+        JPanel lastNamePanel = new JPanel();
+        lastNamePanel.add(new JLabel("Last Name"));
+        lastNamePanel.add(lastNameField);
+        fieldsPanel.add(lastNamePanel);
+
+        JTextField cityField = new JTextField(20);
+        cityField.setText(contact.getCity());
+        cityField.setEditable(false);
+        JPanel cityPanel = new JPanel();
+        cityPanel.add(new JLabel("City"));
+        cityPanel.add(cityField);
+        fieldsPanel.add(cityPanel);
 
         model = new DefaultTableModel(headers, 0);
         table = new JTable(model);
@@ -66,7 +80,6 @@ public class ContactDetailsView extends JFrame {
         mainPanel = new JPanel();
         mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
         mainPanel.add(Title.createTitle());
-        mainPanel.add(new JLabel("New Contact"));
         mainPanel.add(allPanel);
         mainPanel.setBorder(new EmptyBorder(20, 10, 10, 20));
         add(mainPanel);

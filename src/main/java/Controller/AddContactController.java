@@ -65,11 +65,9 @@ public class AddContactController {
                     newContact.setFirstName(fieldList[0].getText());
                     newContact.setLastName(fieldList[1].getText());
                     newContact.setCity(addContactView.getCityField().getText());
-                    if (!checkDuplicateContacts(newContact)) {
-                        if (addContactToDB(newContact)) {
-                            observable.contactAdded(newContact);
-                            addContactView.dispose();
-                        }
+                    if (addContactToDB(newContact)) {
+                        observable.contactAdded(newContact);
+                        addContactView.dispose();
                     }
 
                 }
