@@ -49,4 +49,7 @@ public class Group implements Serializable {
         this.contactList = contactList;
     }
 
+    public void addContact(Contact c) {
+        contactList.add(c);
+    }
 }

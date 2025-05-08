@@ -1,6 +1,7 @@
 package UsefulFunctions;
 
 import Modal.Contact;
+import Modal.Group;
 import java.io.EOFException;
 import java.io.File;
 import java.io.FileInputStream;
@@ -44,6 +45,68 @@ public class FileFunctions {
             ObjectOutputStream oos = new ObjectOutputStream(fos);
             for (Contact contact : list) {
                 oos.writeObject(contact);
+            }
+            list.clear();
+            oos.close();
+            return true;
+        } catch (FileNotFoundException e) {
+            JOptionPane.showMessageDialog(null, "A error occured while saving!", "Error Message", JOptionPane.ERROR_MESSAGE);
+        } catch (IOException e1) {
+            JOptionPane.showMessageDialog(null, "A error occured while saving!", "Error Message", JOptionPane.ERROR_MESSAGE);
+        }
+        return false;
+    }
+
+    public static ArrayList<Group> emptyFileInListGroup(File f) {
+        ArrayList<Group> tempList = new ArrayList<>();
+        try {
+            FileInputStream fis = new FileInputStream(f);
+            ObjectInputStream ois = new ObjectInputStream(fis);
+
+            while (true) {
+                try {
+                    Group group = (Group) ois.readObject();
+                    tempList.add(group);
+                } catch (EOFException e) {
+                    break;
+                }
+            }
+            ois.close();
+        } catch (FileNotFoundException e) {
+            JOptionPane.showMessageDialog(null, "A error occured while saving!", "Error Message", JOptionPane.ERROR_MESSAGE);
+        } catch (IOException e1) {
+            JOptionPane.showMessageDialog(null, "A error occured while saving!", "Error Message", JOptionPane.ERROR_MESSAGE);
+        } catch (ClassNotFoundException e) {
+        }
+        return tempList;
+    }
+
+    public static Boolean saveToFileGroup(Group newGroup, File f) {
+        ArrayList<Group> tempList = emptyFileInListGroup(f);
+        try {
+            FileOutputStream fos = new FileOutputStream(f);
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+            for (Group group : tempList) {
+                oos.writeObject(group);
+            }
+            oos.writeObject(newGroup);
+            tempList.clear();
+            oos.close();
+            return true;
+        } catch (FileNotFoundException e) {
+            JOptionPane.showMessageDialog(null, "A error occured while saving!", "Error Message", JOptionPane.ERROR_MESSAGE);
+        } catch (IOException e1) {
+            JOptionPane.showMessageDialog(null, "A error occured while saving!", "Error Message", JOptionPane.ERROR_MESSAGE);
+        }
+        return false;
+    }
+
+    public static Boolean saveToFileGroup(ArrayList<Group> list, File f) {
+        try {
+            FileOutputStream fos = new FileOutputStream(f);
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+            for (Group group : list) {
+                oos.writeObject(group);
             }
             list.clear();
             oos.close();

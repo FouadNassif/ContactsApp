@@ -44,4 +44,8 @@ public class MainView extends JFrame {
     public JButton getContactButton() {
         return contactsButton;
     }
+
+    public JButton getGroupButton() {
+        return groupsButton;
+    }
 }

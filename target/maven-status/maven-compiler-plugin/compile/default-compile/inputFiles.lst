@@ -1,7 +1,9 @@
 C:\University\JAVA3\NFA035_FouadNassif_2339t\src\main\java\Components\Title.java
 C:\University\JAVA3\NFA035_FouadNassif_2339t\src\main\java\Controller\AddContactController.java
+C:\University\JAVA3\NFA035_FouadNassif_2339t\src\main\java\Controller\AddGroupController.java
 C:\University\JAVA3\NFA035_FouadNassif_2339t\src\main\java\Controller\ContactController.java
 C:\University\JAVA3\NFA035_FouadNassif_2339t\src\main\java\Controller\ContactDetailsController.java
+C:\University\JAVA3\NFA035_FouadNassif_2339t\src\main\java\Controller\GroupController.java
 C:\University\JAVA3\NFA035_FouadNassif_2339t\src\main\java\Controller\MainController.java
 C:\University\JAVA3\NFA035_FouadNassif_2339t\src\main\java\Exception\EmptyStringException.java
 C:\University\JAVA3\NFA035_FouadNassif_2339t\src\main\java\java3\nfa035_fouadnassif_2339t\NFA035_FouadNassif_2339t.java
@@ -10,6 +12,7 @@ C:\University\JAVA3\NFA035_FouadNassif_2339t\src\main\java\Modal\Contact.java
 C:\University\JAVA3\NFA035_FouadNassif_2339t\src\main\java\Modal\Group.java
 C:\University\JAVA3\NFA035_FouadNassif_2339t\src\main\java\Modal\PhoneNumber.java
 C:\University\JAVA3\NFA035_FouadNassif_2339t\src\main\java\Observable\ContactObservable.java
+C:\University\JAVA3\NFA035_FouadNassif_2339t\src\main\java\Observable\GroupObservable.java
 C:\University\JAVA3\NFA035_FouadNassif_2339t\src\main\java\Sorting\ContactSorter.java
 C:\University\JAVA3\NFA035_FouadNassif_2339t\src\main\java\Sorting\SortByCity.java
 C:\University\JAVA3\NFA035_FouadNassif_2339t\src\main\java\Sorting\SortByFirstName.java
@@ -19,6 +22,8 @@ C:\University\JAVA3\NFA035_FouadNassif_2339t\src\main\java\UsefulFunctions\FileF
 C:\University\JAVA3\NFA035_FouadNassif_2339t\src\main\java\UsefulFunctions\StylingFunctions.java
 C:\University\JAVA3\NFA035_FouadNassif_2339t\src\main\java\UsefulFunctions\TableFunctions.java
 C:\University\JAVA3\NFA035_FouadNassif_2339t\src\main\java\view\AddContactView.java
+C:\University\JAVA3\NFA035_FouadNassif_2339t\src\main\java\view\AddGroupView.java
 C:\University\JAVA3\NFA035_FouadNassif_2339t\src\main\java\view\ContactDetailsView.java
 C:\University\JAVA3\NFA035_FouadNassif_2339t\src\main\java\view\ContactView.java
+C:\University\JAVA3\NFA035_FouadNassif_2339t\src\main\java\view\GroupView.java
 C:\University\JAVA3\NFA035_FouadNassif_2339t\src\main\java\view\MainView.java

@@ -2,6 +2,7 @@ package Controller;
 
 import java.awt.event.*;
 import view.ContactView;
+import view.GroupView;
 import view.MainView;
 
 public class MainController {
@@ -14,6 +15,12 @@ public class MainController {
         mainView.getContactButton().addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 new ContactController(new ContactView());
+            }
+        });
+
+        mainView.getGroupButton().addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                new GroupController(new GroupView());
             }
         });
     }
