@@ -16,9 +16,12 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import view.AddContactView;
 import view.ContactDetailsView;
 import view.ContactView;
+import view.UpdateContactView;
 
 public class ContactController implements Observer {
 
@@ -27,6 +30,8 @@ public class ContactController implements Observer {
     private ArrayList<Contact> contactsList = new ArrayList<>();
     ArrayList<Contact> searchedContact = new ArrayList<Contact>();
     ArrayList<Contact> renderContactList = new ArrayList<Contact>();
+    private Contact selectedContact = new Contact();
+    File contactsFile = new File("Contacts.obj");
 
     public ContactController(ContactView view) {
         this.contactView = view;
@@ -35,6 +40,16 @@ public class ContactController implements Observer {
         contactView.getAddNewContactButton().addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 new AddContactController(new AddContactView(), observable);
+            }
+        });
+
+        contactView.getUpdateButton().addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                if (selectedContact.getFirstName() != null) {
+                    new UpdateContactController(new UpdateContactView(selectedContact));
+                } else {
+                    ErrorFunctions.showErrorDialogMessage("Please Select A Contact!", "Error Message");
+                }
             }
         });
 
@@ -89,12 +104,10 @@ public class ContactController implements Observer {
         contactView.getViewButton().addActionListener(new ActionListener() {
 
             public void actionPerformed(ActionEvent e) {
-                int rowIndex = contactView.getTable().getSelectedRow();
-                if (rowIndex != -1) {
-                    System.out.println(renderContactList.get(rowIndex).toString());
-                    new ContactDetailsController(new ContactDetailsView(renderContactList.get(rowIndex)));
+                if (selectedContact.getFirstName() != null) {
+                    new ContactDetailsController(new ContactDetailsView(selectedContact));
                 } else {
-                    ErrorFunctions.showErrorDialogMessage("Please select a contact to View!", "Error Message");
+                    ErrorFunctions.showErrorDialogMessage("Please Select A Contact!", "Error Message");
                 }
             }
         }
@@ -114,15 +127,30 @@ public class ContactController implements Observer {
                 }
             }
         });
+
+        contactView.getTable().getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                if (!e.getValueIsAdjusting()) {
+                    int selectedRow = contactView.getTable().getSelectedRow();
+                    if (selectedRow >= 0 && selectedRow < renderContactList.size()) {
+                        selectedContact = renderContactList.get(selectedRow);
+                    } else {
+                        selectedContact = null;
+                    }
+                }
+            }
+        });
+
     }
 
     private void renderContacts() {
         contactView.getTableModel().setRowCount(0);
         contactsList.clear();
         renderContactList.clear();
+        selectedContact = null;
         try {
-            File f = new File("Contacts.obj");
-            FileInputStream fis = new FileInputStream(f);
+            FileInputStream fis = new FileInputStream(contactsFile);
             ObjectInputStream ois = new ObjectInputStream(fis);
             while (true) {
                 try {
@@ -135,7 +163,6 @@ public class ContactController implements Observer {
                 }
             }
             ois.close();
-            fis.close();
         } catch (FileNotFoundException e) {
         } catch (IOException | ClassNotFoundException e) {
         }
@@ -145,7 +172,8 @@ public class ContactController implements Observer {
         searchedContact.clear();
         renderContactList.clear();
         for (Contact contact : contactsList) {
-            if (contact.getFirstName().toLowerCase().startsWith(s.toLowerCase())) {
+            String fullName = contact.toString().replace(" - ", " ");
+            if (fullName.toLowerCase().startsWith(s.toLowerCase())) {
                 searchedContact.add(contact);
             }
         }
@@ -162,15 +190,15 @@ public class ContactController implements Observer {
         int selectedRow = contactView.getTable().getSelectedRow();
         if (selectedRow != -1) {
             contactsList.remove(renderContactList.get(selectedRow));
-            ArrayList<Contact> tempList = new ArrayList<Contact>(contactsList);
-            FileFunctions.saveToFile(tempList, new File("Contacts.obj"));
+            ArrayList<Contact> tempList = new ArrayList<>(contactsList);
+            FileFunctions.saveToFile(tempList, contactsFile);
             renderContacts();
         }
     }
 
     @Override
-
     public void update(Observable o, Object arg) {
         renderContacts();
     }
+
 }
