@@ -11,6 +11,8 @@ import java.awt.Color;
 import java.awt.event.*;
 import java.io.*;
 import java.util.ArrayList;
+import static java3.nfa035_fouadnassif_2339t.GlobalVariables.CONTACT_FILE;
+import static java3.nfa035_fouadnassif_2339t.GlobalVariables.GROUP_FILE;
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.table.DefaultTableModel;
@@ -21,7 +23,8 @@ public class AddContactController {
     private AddContactView addContactView;
     private ContactObservable observable;
     ArrayList<Group> groups = new ArrayList<>();
-    File contactsFile = new File("Contacts.obj");
+    File contactsFile = CONTACT_FILE;
+    File groupsFile = GROUP_FILE;
 
     public AddContactController(AddContactView view, ContactObservable observable) {
         this.addContactView = view;
@@ -60,7 +63,6 @@ public class AddContactController {
 
                 DefaultTableModel model = addContactView.getTableModel();
                 checkPhoneNumber(model);
-                getSelectedGroups();
                 if (!newContact.getPhoneNumbers().isEmpty()) {
                     newContact.setFirstName(fieldList[0].getText());
                     newContact.setLastName(fieldList[1].getText());
@@ -86,6 +88,7 @@ public class AddContactController {
                             hasValidPhone = true;
                             if (!newContact.addPhoneNumber(new PhoneNumber(regionCode.toString(), phoneNumber.toString()))) {
                                 ErrorFunctions.showErrorDialogMessage("Phone Number Already Exists!", "Error Message");
+                                return;
                             }
                         }
                     }
@@ -137,6 +140,7 @@ public class AddContactController {
             private boolean addContactToDB(Contact newContact) {
                 ArrayList<Contact> tempContactsList = FileFunctions.emptyFileInList(contactsFile);
                 tempContactsList.add(newContact);
+                getSelectedGroups();
                 return FileFunctions.saveToFile(tempContactsList, contactsFile);
             }
 
@@ -144,36 +148,45 @@ public class AddContactController {
                 ArrayList<JCheckBox> checkBoxList = addContactView.getCheckBoxes();
                 for (JCheckBox checkBox : checkBoxList) {
                     if (checkBox.isSelected()) {
-                        System.out.println(checkBox.getText());
+                        groups.get(checkBoxList.indexOf(checkBox)).addContact(newContact);
                     }
                 }
+                FileFunctions.saveToFileGroup(groups, groupsFile);
             }
         }
         );
     }
 
     private void renderGroups() {
-        groups.add(new Group("No groups", ""));
-        try {
-            File f = new File("Groups.obj");
-            FileInputStream fis = new FileInputStream(f);
-            ObjectInputStream ois = new ObjectInputStream(fis);
+        groups.clear();
 
-            while (true) {
-                try {
-                    Group group = (Group) ois.readObject();
-                    groups.add(group);
-                } catch (EOFException e) {
-                    break;
+        try {
+            if (!groupsFile.exists() || groupsFile.length() == 0) {
+                groups.add(new Group("No groups", ""));
+            } else {
+                FileInputStream fis = new FileInputStream(groupsFile);
+                ObjectInputStream ois = new ObjectInputStream(fis);
+
+                while (true) {
+                    try {
+                        Group group = (Group) ois.readObject();
+                        groups.add(group);
+                    } catch (EOFException e) {
+                        break;
+                    }
+                }
+                ois.close();
+                if (groups.isEmpty()) {
+                    groups.add(new Group("No groups", ""));
                 }
             }
-            ois.close();
             addContactView.renderGroups(groups);
         } catch (FileNotFoundException e) {
-            JOptionPane.showMessageDialog(null, "A error occured while saving!", "Error Message", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "An error occurred while loading groups!", "Error Message", JOptionPane.ERROR_MESSAGE);
         } catch (IOException e1) {
-            JOptionPane.showMessageDialog(null, "A error occured while saving!", "Error Message", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "An error occurred while loading groups!", "Error Message", JOptionPane.ERROR_MESSAGE);
         } catch (ClassNotFoundException e) {
         }
     }
+
 }

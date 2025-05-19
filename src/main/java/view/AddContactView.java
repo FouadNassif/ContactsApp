@@ -13,7 +13,6 @@ public class AddContactView extends JFrame {
     private JLabel title, fnLabel, lnLabel, cityLabel, title2, groupsLabel;
     private JTextField fnField, lnField, cityField;
     private JPanel titlePanel, fnPanel, lnPanel, cityPanel, fieldsPanel, tablePanel, buttonsPanel, allPanel, checkBoxPanel, mainPanel;
-    private String[] groups = {"No Groups", "Family", "Friends", "Co-Workers"};
     private JTable table;
     private String[] headers = {"Region Code", "Phone number"};
     private DefaultTableModel model;

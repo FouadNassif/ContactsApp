@@ -88,22 +88,21 @@ public class Contact extends Observable implements Serializable, Comparable {
         } else if (this.getFirstName().compareTo(c.getFirstName()) < 0 && this.getLastName().compareTo(c.getLastName()) < 0) {
             return -1;
         } else {
-            if (this.phoneNumbers.size() > c.getPhoneNumbers().size()) {
+            if (this.phoneNumbers.size() == c.getPhoneNumbers().size()) {
                 return checkNumbers(this.phoneNumbers, c.getPhoneNumbers());
             } else {
-                return checkNumbers(c.getPhoneNumbers(), this.phoneNumbers);
+                return -1;
             }
         }
     }
 
     private int checkNumbers(ArrayList<PhoneNumber> List1, ArrayList<PhoneNumber> List2) {
-        for (PhoneNumber pn : List2) {
-            for (PhoneNumber pn1 : List1) {
-                if (pn.compareTo(pn1) == 0) {
-                    return 0;
-                }
+        for (int i = 0; i < List1.size(); i++) {
+            if (List1.get(i).compareTo(List2.get(i)) != 0) {
+                return -1;
             }
         }
-        return -1;
+        return 0;
     }
+
 }

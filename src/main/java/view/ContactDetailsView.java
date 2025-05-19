@@ -11,16 +11,15 @@ import javax.swing.table.DefaultTableModel;
 public class ContactDetailsView extends JFrame {
 
     private JLabel groupsLabel;
-    String[] inputsLabel = {"First Name", "Last Name", "City"};
     private JPanel fieldsPanel, tablePanel, buttonsPanel, allPanel, checkBoxPanel, mainPanel;
-    private String[] groups = {"No Groups", "Family", "Friends", "Co-Workers"};
     private JTable table;
     private String[] headers = {"Region Code", "Phone number"};
     private DefaultTableModel model;
     private JButton backButton;
+    private Contact currentContact;
 
     public ContactDetailsView(Contact contact) {
-
+        currentContact = contact;
         fieldsPanel = new JPanel();
         fieldsPanel.setLayout(new BoxLayout(fieldsPanel, BoxLayout.Y_AXIS));
         JTextField firstNameField = new JTextField(20);
@@ -64,6 +63,7 @@ public class ContactDetailsView extends JFrame {
         scrollCheckBoxPanel.setBorder(null);
         groupsLabel = new JLabel("Contact Groups:");
         groupsLabel.add(Box.createVerticalStrut(5));
+
         checkBoxPanel.add(groupsLabel);
 
         backButton = new JButton("Back");
@@ -88,9 +88,18 @@ public class ContactDetailsView extends JFrame {
         setLocationRelativeTo(null);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setVisible(true);
+
     }
 
     public JButton getBackButton() {
         return backButton;
+    }
+
+    public JPanel getCheckBoxPanel() {
+        return checkBoxPanel;
+    }
+
+    public Contact getContact() {
+        return currentContact;
     }
 }

@@ -1,5 +1,6 @@
 package Controller;
 
+import Modal.Contact;
 import Modal.Group;
 import Observable.GroupObservable;
 import UsefulFunctions.ErrorFunctions;
@@ -11,14 +12,18 @@ import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 import javax.swing.JOptionPane;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import view.AddGroupView;
 import view.GroupView;
+import view.UpdateGroupView;
 
 public class GroupController implements Observer {
 
     private GroupView groupView;
     private ArrayList<Group> groups = new ArrayList<Group>();
     private GroupObservable observable = new GroupObservable();
+    int selectedRow = -1;
     File f = new File("Groups.obj");
 
     public GroupController(GroupView view) {
@@ -44,14 +49,46 @@ public class GroupController implements Observer {
             }
         });
 
+        groupView.getTable().getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                if (!e.getValueIsAdjusting()) {
+                    selectedRow = groupView.getTable().getSelectedRow();
+                    if (selectedRow >= 0) {
+                        renderContacts(groups.get(selectedRow));
+                    }
+                }
+            }
+        });
+
+        groupView.getUpdateButton().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new UpdateGroupController(new UpdateGroupView(), groups.get(selectedRow));
+            }
+
+        });
+
     }
 
     private void renderGroups() {
         groups.clear();
         groupView.getTableModel().setRowCount(0);
-        groups.addAll(FileFunctions.emptyFileInListGroup(f));
-        for (Group group : groups) {
-            groupView.getTableModel().addRow(new String[]{group.getName(), " " + group.getContactList().size()});
+        ArrayList<Group> temp = FileFunctions.emptyFileInListGroup(f);
+        if (!temp.isEmpty()) {
+            groups.addAll(temp);
+            for (Group group : groups) {
+                groupView.getTableModel().addRow(new String[]{group.getName(), " " + group.getContactList().size()});
+            }
+        }
+    }
+
+    private void renderContacts(Group g) {
+        System.out.println(g.getContactList());
+        groupView.getContactTableModel().setRowCount(0);
+        for (Contact contact : g.getContactList()) {
+            System.out.println(contact);
+            groupView.getContactTableModel().addRow(new String[]{contact.getFirstName() + " " + contact.getLastName(), contact.getCity()});
         }
     }
 

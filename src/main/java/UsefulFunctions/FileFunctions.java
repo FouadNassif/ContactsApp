@@ -17,24 +17,26 @@ public class FileFunctions {
 
     public static ArrayList<Contact> emptyFileInList(File f) {
         ArrayList<Contact> tempList = new ArrayList<>();
-        try {
-            FileInputStream fis = new FileInputStream(f);
-            ObjectInputStream ois = new ObjectInputStream(fis);
+        if (f.length() > 0) {
+            try {
+                FileInputStream fis = new FileInputStream(f);
+                ObjectInputStream ois = new ObjectInputStream(fis);
 
-            while (true) {
-                try {
-                    Contact contact = (Contact) ois.readObject();
-                    tempList.add(contact);
-                } catch (EOFException e) {
-                    break;
+                while (true) {
+                    try {
+                        Contact contact = (Contact) ois.readObject();
+                        tempList.add(contact);
+                    } catch (EOFException e) {
+                        break;
+                    }
                 }
+                ois.close();
+            } catch (FileNotFoundException e) {
+                JOptionPane.showMessageDialog(null, "A error occured while saving!", "Error Message", JOptionPane.ERROR_MESSAGE);
+            } catch (IOException e1) {
+                JOptionPane.showMessageDialog(null, "A error occured while saving!", "Error Message", JOptionPane.ERROR_MESSAGE);
+            } catch (ClassNotFoundException e) {
             }
-            ois.close();
-        } catch (FileNotFoundException e) {
-            JOptionPane.showMessageDialog(null, "A error occured while saving!", "Error Message", JOptionPane.ERROR_MESSAGE);
-        } catch (IOException e1) {
-            JOptionPane.showMessageDialog(null, "A error occured while saving!", "Error Message", JOptionPane.ERROR_MESSAGE);
-        } catch (ClassNotFoundException e) {
         }
         return tempList;
     }
@@ -59,24 +61,27 @@ public class FileFunctions {
 
     public static ArrayList<Group> emptyFileInListGroup(File f) {
         ArrayList<Group> tempList = new ArrayList<>();
-        try {
-            FileInputStream fis = new FileInputStream(f);
-            ObjectInputStream ois = new ObjectInputStream(fis);
+        if (f.length() > 0) {
 
-            while (true) {
-                try {
-                    Group group = (Group) ois.readObject();
-                    tempList.add(group);
-                } catch (EOFException e) {
-                    break;
+            try {
+                FileInputStream fis = new FileInputStream(f);
+                ObjectInputStream ois = new ObjectInputStream(fis);
+
+                while (true) {
+                    try {
+                        Group group = (Group) ois.readObject();
+                        tempList.add(group);
+                    } catch (EOFException e) {
+                        break;
+                    }
                 }
+                ois.close();
+            } catch (FileNotFoundException e) {
+                JOptionPane.showMessageDialog(null, "A error occured while saving1!", "Error Message", JOptionPane.ERROR_MESSAGE);
+            } catch (IOException e1) {
+                JOptionPane.showMessageDialog(null, "A error occured while saving2!", "Error Message", JOptionPane.ERROR_MESSAGE);
+            } catch (ClassNotFoundException e) {
             }
-            ois.close();
-        } catch (FileNotFoundException e) {
-            JOptionPane.showMessageDialog(null, "A error occured while saving!", "Error Message", JOptionPane.ERROR_MESSAGE);
-        } catch (IOException e1) {
-            JOptionPane.showMessageDialog(null, "A error occured while saving!", "Error Message", JOptionPane.ERROR_MESSAGE);
-        } catch (ClassNotFoundException e) {
         }
         return tempList;
     }
@@ -94,9 +99,9 @@ public class FileFunctions {
             oos.close();
             return true;
         } catch (FileNotFoundException e) {
-            JOptionPane.showMessageDialog(null, "A error occured while saving!", "Error Message", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "A error occured while saving3!", "Error Message", JOptionPane.ERROR_MESSAGE);
         } catch (IOException e1) {
-            JOptionPane.showMessageDialog(null, "A error occured while saving!", "Error Message", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "A error occured while saving4!", "Error Message", JOptionPane.ERROR_MESSAGE);
         }
         return false;
     }
@@ -112,9 +117,9 @@ public class FileFunctions {
             oos.close();
             return true;
         } catch (FileNotFoundException e) {
-            JOptionPane.showMessageDialog(null, "A error occured while saving!", "Error Message", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "A error occured while saving5!", "Error Message", JOptionPane.ERROR_MESSAGE);
         } catch (IOException e1) {
-            JOptionPane.showMessageDialog(null, "A error occured while saving!", "Error Message", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "A error occured while saving6!", "Error Message", JOptionPane.ERROR_MESSAGE);
         }
         return false;
     }

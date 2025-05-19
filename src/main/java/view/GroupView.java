@@ -26,6 +26,10 @@ public class GroupView extends JFrame {
     private String[] headers = {"Group Name", "Nb. of Contacts"};
     private DefaultTableModel model;
 
+    private JTable contactTable;
+    private DefaultTableModel contactModel;
+    private String[] contactHeaders = {"Contact Name", "Contact City"};
+
     public GroupView() {
         title = new JLabel("Contact Management");
         title.setFont(new Font("SansSerif", Font.BOLD, 18));
@@ -41,7 +45,7 @@ public class GroupView extends JFrame {
         filterPanel.add(Box.createVerticalStrut(ITEMS_GAP));
         filterPanel.add(addGroupBtn);
 
-        model = new DefaultTableModel(headers, 0) {
+        model = new DefaultTableModel(headers, 7) {
             @Override
             public boolean isCellEditable(int row, int column) {
                 return false;
@@ -53,9 +57,28 @@ public class GroupView extends JFrame {
         table.setRowHeight(20);
         table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
+        JScrollPane groupScrollPane = new JScrollPane(table);
+        groupScrollPane.setPreferredSize(new java.awt.Dimension(450, table.getRowHeight() * 7));
+
+        contactModel = new DefaultTableModel(contactHeaders, 0) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
+        contactTable = new JTable(contactModel);
+        contactTable.setFont(new Font("SansSerif", Font.PLAIN, 14));
+        contactTable.setRowHeight(20);
+        contactTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+
+        JScrollPane contactScrollPane = new JScrollPane(contactTable);
+        contactScrollPane.setPreferredSize(new java.awt.Dimension(450, contactTable.getRowHeight() * 7));
+
         JPanel textAreaPanel = new JPanel();
         textAreaPanel.setLayout(new BoxLayout(textAreaPanel, BoxLayout.Y_AXIS));
-        textAreaPanel.add(new JScrollPane(table));
+        textAreaPanel.add(groupScrollPane);
+        textAreaPanel.add(Box.createVerticalStrut(20));
+        textAreaPanel.add(contactScrollPane);
 
         updateButton = new JButton("Update Group");
         deleteButton = new JButton("Delete");
@@ -75,6 +98,7 @@ public class GroupView extends JFrame {
         mainPanel.add(Box.createHorizontalStrut(ITEMS_GAP));
         mainPanel.add(searchPanel);
         mainPanel.setBorder(new EmptyBorder(20, 20, 20, 20));
+
         JPanel tempPanel = new JPanel();
         tempPanel.setLayout(new BorderLayout());
         tempPanel.add(Title.createTitle(), BorderLayout.NORTH);
@@ -82,7 +106,7 @@ public class GroupView extends JFrame {
 
         add(tempPanel);
 
-        setTitle("Contact View");
+        setTitle("Group View");
         setSize(520, 450);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -97,11 +121,23 @@ public class GroupView extends JFrame {
         return deleteButton;
     }
 
+    public JButton getUpdateButton() {
+        return updateButton;
+    }
+
     public JTable getTable() {
         return table;
     }
 
     public DefaultTableModel getTableModel() {
         return model;
+    }
+
+    public JTable getContactTable() {
+        return contactTable;
+    }
+
+    public DefaultTableModel getContactTableModel() {
+        return contactModel;
     }
 }

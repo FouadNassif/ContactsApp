@@ -5,6 +5,7 @@ import Modal.Contact;
 import Modal.PhoneNumber;
 import UsefulFunctions.FileFunctions;
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
 import view.MainView;
@@ -19,8 +20,21 @@ public class NFA035_FouadNassif_2339t {
 
     public static void main(String[] args) {
         new MainController(new MainView());
+        checkAndCreateFiles();
 //        randomContact();
 
+    }
+
+    private static void checkAndCreateFiles() {
+        try {
+            if (!GlobalVariables.CONTACT_FILE.exists()) {
+                GlobalVariables.CONTACT_FILE.createNewFile();
+            }
+            if (!GlobalVariables.GROUP_FILE.exists()) {
+                GlobalVariables.GROUP_FILE.createNewFile();
+            }
+        } catch (IOException e) {
+        }
     }
 
     private static void randomContact() {
