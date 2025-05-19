@@ -50,6 +50,8 @@ public class UpdateGroupView extends JFrame {
         };
 
         table = new JTable();
+        table.getTableHeader().setReorderingAllowed(false);
+        table.getTableHeader().setResizingAllowed(false);
         table = new JTable(model);
         table.setFont(new Font("SansSerif", Font.BOLD, 14));
         table.setRowHeight(20);
@@ -78,6 +80,11 @@ public class UpdateGroupView extends JFrame {
         setLocationRelativeTo(null);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setVisible(true);
+        setResizable(false);
+    }
+
+    public JButton getCancelButton() {
+        return cancelBtn;
     }
 
     public JTextField getNameField() {

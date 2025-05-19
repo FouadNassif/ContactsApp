@@ -14,7 +14,6 @@ view\GroupView.class
 Controller\GroupController$1.class
 Controller\ContactController$8.class
 Controller\AddContactController.class
-Controller\AddContactController$2.class
 UsefulFunctions\ErrorFunctions.class
 Modal\PhoneNumber.class
 Sorting\SortByCity.class
@@ -47,6 +46,7 @@ Controller\GroupController$3.class
 UsefulFunctions\TableFunctions.class
 view\AddContactView.class
 view\AddGroupView.class
+Components\CancelButton.class
 Controller\ContactController$3.class
 java3\nfa035_fouadnassif_2339t\GlobalVariables.class
 java3\nfa035_fouadnassif_2339t\NFA035_FouadNassif_2339t.class

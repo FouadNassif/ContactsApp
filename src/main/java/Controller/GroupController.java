@@ -39,12 +39,20 @@ public class GroupController implements Observer {
         groupView.getDeleteButton().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JOptionPane optPane = new JOptionPane();
-                int reponse = optPane.showConfirmDialog(null, "Are you sure you want to delete?", "Comfirm Message", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-                if (reponse == optPane.YES_OPTION) {
-                    deleteGroup();
+                if (selectedRow != - 1) {
+                    if ("No groups".equals((String) groupView.getTable().getValueAt(selectedRow, 0))) {
+                        ErrorFunctions.showErrorDialogMessage("Can't Delete This Group!", "Error Message");
+                    } else {
+                        JOptionPane optPane = new JOptionPane();
+                        int reponse = optPane.showConfirmDialog(null, "Are you sure you want to delete?", "Comfirm Message", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+                        if (reponse == optPane.YES_OPTION) {
+                            deleteGroup();
+                        } else {
+                            optPane.setVisible(false);
+                        }
+                    }
                 } else {
-                    optPane.setVisible(false);
+                    ErrorFunctions.showErrorDialogMessage("Please Select a group to Delete", "Error Message");
                 }
             }
         });
@@ -64,7 +72,11 @@ public class GroupController implements Observer {
         groupView.getUpdateButton().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new UpdateGroupController(new UpdateGroupView(), groups.get(selectedRow));
+                if (selectedRow != - 1) {
+                    new UpdateGroupController(new UpdateGroupView(), groups.get(selectedRow));
+                } else {
+                    ErrorFunctions.showErrorDialogMessage("Please Select a group to Delete", "Error Message");
+                }
             }
 
         });
@@ -84,24 +96,18 @@ public class GroupController implements Observer {
     }
 
     private void renderContacts(Group g) {
-        System.out.println(g.getContactList());
         groupView.getContactTableModel().setRowCount(0);
         for (Contact contact : g.getContactList()) {
-            System.out.println(contact);
             groupView.getContactTableModel().addRow(new String[]{contact.getFirstName() + " " + contact.getLastName(), contact.getCity()});
         }
     }
 
     private void deleteGroup() {
-        int selectedRow = groupView.getTable().getSelectedRow();
-        if (selectedRow != -1) {
-            groups.remove(groups.get(selectedRow));
-            ArrayList<Group> tempList = new ArrayList<Group>(groups);
-            FileFunctions.saveToFileGroup(tempList, f);
-            renderGroups();
-        } else {
-            ErrorFunctions.showErrorDialogMessage("Please Select a group to Delete", "Error Message");
-        }
+        groups.remove(groups.get(selectedRow));
+        ArrayList<Group> tempList = new ArrayList<Group>(groups);
+        FileFunctions.saveToFileGroup(tempList, f);
+        groupView.getContactTableModel().setRowCount(0);
+        renderGroups();
     }
 
     @Override

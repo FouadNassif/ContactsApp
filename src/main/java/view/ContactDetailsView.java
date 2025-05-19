@@ -48,6 +48,8 @@ public class ContactDetailsView extends JFrame {
 
         model = new DefaultTableModel(headers, 0);
         table = new JTable(model);
+        table.getTableHeader().setReorderingAllowed(false);
+        table.getTableHeader().setResizingAllowed(false);
         for (PhoneNumber phoneNumber : contact.getPhoneNumbers()) {
             model.addRow(new String[]{phoneNumber.getRegionCode(), phoneNumber.getPhoneNumber()});
         }
@@ -88,7 +90,7 @@ public class ContactDetailsView extends JFrame {
         setLocationRelativeTo(null);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setVisible(true);
-
+        setResizable(false);
     }
 
     public JButton getBackButton() {

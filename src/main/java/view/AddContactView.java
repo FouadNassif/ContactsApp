@@ -53,6 +53,8 @@ public class AddContactView extends JFrame {
 
         model = new DefaultTableModel(headers, 6);
         table = new JTable(model);
+        table.getTableHeader().setReorderingAllowed(false);
+        table.getTableHeader().setResizingAllowed(false);
         tablePanel = new JPanel();
         tablePanel.setLayout(new BoxLayout(tablePanel, BoxLayout.Y_AXIS));
         JScrollPane scrollPane = new JScrollPane(table);
@@ -91,6 +93,7 @@ public class AddContactView extends JFrame {
         setLocationRelativeTo(null);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setVisible(true);
+        setResizable(false);
     }
 
     public JButton getCancelButton() {

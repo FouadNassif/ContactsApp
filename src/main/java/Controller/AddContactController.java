@@ -1,5 +1,6 @@
 package Controller;
 
+import Components.CancelButton;
 import Modal.Contact;
 import Modal.Group;
 import Modal.PhoneNumber;
@@ -32,21 +33,7 @@ public class AddContactController {
         renderGroups();
 
         // Cancel Function
-        addContactView.getCancelButton().addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                String title = "Comfirm Message";
-                String message = "Do you want close this Window! \n All the Progress will be Gone!";
-                JOptionPane optPane = new JOptionPane();
-                int reponse = optPane.showConfirmDialog(null, message, title, JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-                if (reponse == optPane.YES_OPTION) {
-                    addContactView.dispose();
-                } else {
-                    optPane.setVisible(false);
-                }
-            }
-        }
-        );
+        addContactView.getCancelButton().addActionListener(new CancelButton(addContactView));
 
         // Save Function
         addContactView.getSaveButton().addActionListener(new ActionListener() {

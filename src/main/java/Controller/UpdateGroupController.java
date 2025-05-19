@@ -1,5 +1,6 @@
 package Controller;
 
+import Components.CancelButton;
 import Modal.Contact;
 import Modal.Group;
 import java.util.ArrayList;
@@ -10,13 +11,14 @@ public class UpdateGroupController {
     private UpdateGroupView updateGroupView;
     private ArrayList<Contact> contacts;
 
-    public UpdateGroupController(UpdateGroupView updateGroupView, Group group) {
-        this.updateGroupView = updateGroupView;
+    public UpdateGroupController(UpdateGroupView view, Group group) {
+        this.updateGroupView = view;
         contacts = new ArrayList<>(group.getContactList());
 
         updateGroupView.getNameField().setText(group.getName());
         updateGroupView.getDescField().setText(group.getDescription());
 
+        updateGroupView.getCancelButton().addActionListener(new CancelButton(updateGroupView));
     }
 
 //    private void renderContacts() {

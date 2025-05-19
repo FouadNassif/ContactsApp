@@ -30,6 +30,7 @@ public class ContactController implements Observer {
     private ArrayList<Contact> contactsList = new ArrayList<>();
     ArrayList<Contact> searchedContact = new ArrayList<Contact>();
     ArrayList<Contact> renderContactList = new ArrayList<Contact>();
+    private int selectedRow = -1;
     private Contact selectedContact = new Contact();
     File contactsFile = new File("Contacts.obj");
 
@@ -45,7 +46,7 @@ public class ContactController implements Observer {
 
         contactView.getUpdateButton().addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                if (selectedContact.getFirstName() != null) {
+                if (selectedRow != -1) {
                     new UpdateContactController(new UpdateContactView(selectedContact));
                 } else {
                     ErrorFunctions.showErrorDialogMessage("Please Select A Contact!", "Error Message");
@@ -104,7 +105,7 @@ public class ContactController implements Observer {
         contactView.getViewButton().addActionListener(new ActionListener() {
 
             public void actionPerformed(ActionEvent e) {
-                if (selectedContact.getFirstName() != null) {
+                if (selectedRow != -1) {
                     new ContactDetailsController(new ContactDetailsView(selectedContact));
                 } else {
                     ErrorFunctions.showErrorDialogMessage("Please Select A Contact!", "Error Message");
@@ -132,7 +133,7 @@ public class ContactController implements Observer {
             @Override
             public void valueChanged(ListSelectionEvent e) {
                 if (!e.getValueIsAdjusting()) {
-                    int selectedRow = contactView.getTable().getSelectedRow();
+                    selectedRow = contactView.getTable().getSelectedRow();
                     if (selectedRow >= 0 && selectedRow < renderContactList.size()) {
                         selectedContact = renderContactList.get(selectedRow);
                     } else {

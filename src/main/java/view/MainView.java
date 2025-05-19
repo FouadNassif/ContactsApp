@@ -39,6 +39,7 @@ public class MainView extends JFrame {
         setTitle("Project NFA035");
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setResizable(false);
     }
 
     public JButton getContactButton() {
