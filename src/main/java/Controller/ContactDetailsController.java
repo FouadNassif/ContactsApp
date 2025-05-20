@@ -1,8 +1,6 @@
 package Controller;
 
-import Modal.Contact;
 import Modal.Group;
-import UsefulFunctions.FileFunctions;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -28,16 +26,10 @@ public class ContactDetailsController {
     }
 
     public void renderGroups() {
-        System.out.println(contactDetailsView.getContact());
-        ArrayList<Group> groups = FileFunctions.emptyFileInListGroup(groupsFile);
+        ArrayList<Group> groups = contactDetailsView.getContact().getGroups();
         for (Group group : groups) {
-            for (Contact contact : group.getContactList()) {
-                System.out.println(contact);
-                if (contact.compareTo(contactDetailsView.getContact()) == 0) {
-                    contactDetailsView.getCheckBoxPanel().add(new JLabel(group.getName()));
-                    break;
-                }
-            }
+            contactDetailsView.getCheckBoxPanel().add(new JLabel(group.getName()));
         }
     }
+
 }

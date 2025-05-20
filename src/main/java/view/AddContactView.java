@@ -3,6 +3,8 @@ package view;
 import Modal.Group;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.util.ArrayList;
 import javax.swing.*;
 import javax.swing.border.*;
@@ -130,12 +132,50 @@ public class AddContactView extends JFrame {
     }
 
     public void renderGroups(ArrayList<Group> groups) {
-        for (Group group : groups) {
-            JCheckBox cb = new JCheckBox(group.getName());
+        for (int i = 0; i < groups.size(); i++) {
+            JCheckBox cb = new JCheckBox(groups.get(i).getName());
             checkBoxList.add(cb);
             checkBoxPanel.add(cb);
         }
-        checkBoxList.get(0).setSelected(true);
+
+        if (!checkBoxList.isEmpty()) {
+            checkBoxList.get(0).setSelected(true);
+        }
+
+        for (int i = 0; i < checkBoxList.size(); i++) {
+            final int index = i;
+            JCheckBox cb = checkBoxList.get(i);
+            cb.addItemListener(new ItemListener() {
+                @Override
+                public void itemStateChanged(ItemEvent e) {
+                    if (index == 0) {
+                        // If "No Groups" is selected, uncheck all other groups
+                        if (cb.isSelected()) {
+                            for (int j = 1; j < checkBoxList.size(); j++) {
+                                checkBoxList.get(j).setSelected(false);
+                            }
+                        }
+                    } else {
+                        if (cb.isSelected()) {
+                            // If another group is selected, unselect "No Groups"
+                            checkBoxList.get(0).setSelected(false);
+                        } else {
+                            // If no other groups are selected, select "No Groups"
+                            boolean anySelected = false;
+                            for (int j = 1; j < checkBoxList.size(); j++) {
+                                if (checkBoxList.get(j).isSelected()) {
+                                    anySelected = true;
+                                    break;
+                                }
+                            }
+                            if (!anySelected) {
+                                checkBoxList.get(0).setSelected(true);
+                            }
+                        }
+                    }
+                }
+            });
+        }
     }
 
 }

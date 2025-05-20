@@ -49,7 +49,10 @@ public class AddContactController {
                 }
 
                 DefaultTableModel model = addContactView.getTableModel();
-                checkPhoneNumber(model);
+                if (!checkPhoneNumber(model)) {
+                    return;
+                }
+
                 if (!newContact.getPhoneNumbers().isEmpty()) {
                     newContact.setFirstName(fieldList[0].getText());
                     newContact.setLastName(fieldList[1].getText());
@@ -62,29 +65,42 @@ public class AddContactController {
                 }
             }
 
-            private void checkPhoneNumber(DefaultTableModel model) {
+            private boolean checkPhoneNumber(DefaultTableModel model) {
                 boolean hasValidPhone = false;
                 newContact.printPhoneNumbers();
-                // Clearing the Phoneumber list so i can check for duplicate
                 newContact.clearAllPhoneNumbers();
+
                 for (int row = 0; row < model.getRowCount(); row++) {
                     Object regionCode = model.getValueAt(row, 0);
                     Object phoneNumber = model.getValueAt(row, 1);
-                    if (regionCode != null && phoneNumber != null) {
+
+                    boolean regionFilled = regionCode != null && !regionCode.toString().trim().isEmpty();
+                    boolean phoneFilled = phoneNumber != null && !phoneNumber.toString().trim().isEmpty();
+
+                    if (regionFilled && phoneFilled) {
                         if (checkRegionPhone(regionCode.toString(), phoneNumber.toString())) {
                             hasValidPhone = true;
                             if (!newContact.addPhoneNumber(new PhoneNumber(regionCode.toString(), phoneNumber.toString()))) {
                                 ErrorFunctions.showErrorDialogMessage("Phone Number Already Exists!", "Error Message");
-                                return;
+                                return false;
                             }
+                        } else {
+                            ErrorFunctions.showErrorDialogMessage("Phone number must contain digits only.\nPlease enter a valid number.", "Error Message");
+                            return false;
                         }
+                    } else if (regionFilled || phoneFilled) {
+                        ErrorFunctions.showErrorDialogMessage("Both Region Code and Phone Number must be filled for each row.", "Error Message");
+                        return false;
                     }
                 }
 
                 if (!hasValidPhone) {
                     addContactView.getTable().setBorder(BorderFactory.createLineBorder(Color.RED, 2));
-                    ErrorFunctions.showErrorDialogMessage("Phone number must contain digits only. \nPlease enter a valid number.", "Error Message");
+                    ErrorFunctions.showErrorDialogMessage("At least one valid phone number is required.", "Error Message");
+                    return false;
                 }
+
+                return true;
             }
 
             private boolean checkRegionPhone(String rg, String pn) {
@@ -138,6 +154,7 @@ public class AddContactController {
                         groups.get(checkBoxList.indexOf(checkBox)).addContact(newContact);
                     }
                 }
+
                 FileFunctions.saveToFileGroup(groups, groupsFile);
             }
         }

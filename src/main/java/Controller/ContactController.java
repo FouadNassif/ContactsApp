@@ -47,7 +47,7 @@ public class ContactController implements Observer {
         contactView.getUpdateButton().addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 if (selectedRow != -1) {
-                    new UpdateContactController(new UpdateContactView(selectedContact));
+                    new UpdateContactController(new UpdateContactView(selectedContact), observable, selectedRow);
                 } else {
                     ErrorFunctions.showErrorDialogMessage("Please Select A Contact!", "Error Message");
                 }

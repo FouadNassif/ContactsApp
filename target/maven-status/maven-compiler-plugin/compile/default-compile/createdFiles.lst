@@ -37,10 +37,12 @@ Controller\ContactController$7.class
 Observable\ContactObservable.class
 Sorting\ContactSorter.class
 view\UpdateContactView.class
+Controller\UpdateContactController$2.class
 UsefulFunctions\StylingFunctions.class
 java3\nfa035_fouadnassif_2339t\UsefulFunctions.class
 Sorting\SortByLastName.class
 Controller\ContactDetailsController$1.class
+Controller\UpdateContactController$1.class
 view\GroupView$1.class
 Controller\GroupController$3.class
 UsefulFunctions\TableFunctions.class
@@ -50,6 +52,7 @@ Components\CancelButton.class
 Controller\ContactController$3.class
 java3\nfa035_fouadnassif_2339t\GlobalVariables.class
 java3\nfa035_fouadnassif_2339t\NFA035_FouadNassif_2339t.class
+view\AddContactView$1.class
 Controller\ContactController$6.class
 Controller\AddGroupController.class
 Controller\ContactController.class

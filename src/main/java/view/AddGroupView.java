@@ -93,4 +93,8 @@ public class AddGroupView extends JFrame {
     public JTextField getDesField() {
         return descField;
     }
+
+    public JButton getCancelButton() {
+        return cancelBtn;
+    }
 }

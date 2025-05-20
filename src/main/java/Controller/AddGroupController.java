@@ -1,5 +1,6 @@
 package Controller;
 
+import Components.CancelButton;
 import Modal.Contact;
 import Modal.Group;
 import Observable.GroupObservable;
@@ -50,6 +51,8 @@ public class AddGroupController {
             }
         }
         );
+
+        addGroupView.getCancelButton().addActionListener(new CancelButton(addGroupView));
 
     }
 

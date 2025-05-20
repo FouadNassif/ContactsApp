@@ -1,8 +1,11 @@
 package Modal;
 
+import UsefulFunctions.FileFunctions;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.Observable;
+import static java3.nfa035_fouadnassif_2339t.GlobalVariables.GROUP_FILE;
 
 public class Contact extends Observable implements Serializable, Comparable {
 
@@ -103,6 +106,39 @@ public class Contact extends Observable implements Serializable, Comparable {
             }
         }
         return 0;
+    }
+
+    public ArrayList<Group> getGroups() {
+        ArrayList<Group> groups = FileFunctions.emptyFileInListGroup(GROUP_FILE);
+        ArrayList<Group> contactGroups = new ArrayList<>();
+        for (Group group : groups) {
+            for (Contact contact : group.getContactList()) {
+                if (contact.compareTo(this) == 0) {
+                    contactGroups.add(group);
+                    break;
+                }
+            }
+        }
+        return contactGroups;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+        Contact contact = (Contact) obj;
+        return firstName.equals(contact.firstName)
+                && lastName.equals(contact.lastName)
+                && phoneNumbers.equals(contact.phoneNumbers); // or use a unique ID if available
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(firstName, lastName, phoneNumbers); // or use unique ID
     }
 
 }

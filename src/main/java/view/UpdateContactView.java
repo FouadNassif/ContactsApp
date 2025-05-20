@@ -1,7 +1,6 @@
 package view;
 
 import Modal.Contact;
-import Modal.Group;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.util.ArrayList;
@@ -24,14 +23,15 @@ public class UpdateContactView extends JFrame {
     private JLabel title, fnLabel, lnLabel, cityLabel, title2, groupsLabel;
     private JTextField fnField, lnField, cityField;
     private JPanel titlePanel, fnPanel, lnPanel, cityPanel, fieldsPanel, tablePanel, buttonsPanel, allPanel, checkBoxPanel, mainPanel;
-    private String[] groups = {"No Groups", "Family", "Friends", "Co-Workers"};
     private JTable table;
     private String[] headers = {"Region Code", "Phone number"};
     private DefaultTableModel model;
     private ArrayList<JCheckBox> checkBoxList = new ArrayList<>();
     private JButton saveButton, cancelButton;
+    private Contact contact;
 
     public UpdateContactView(Contact contact) {
+        this.contact = contact;
         title = new JLabel("Contact Management");
         title.setFont(new Font("SansSerif", Font.BOLD, 18));
         titlePanel = new JPanel();
@@ -41,21 +41,18 @@ public class UpdateContactView extends JFrame {
 
         fnLabel = new JLabel("First name");
         fnField = new JTextField(20);
-        fnField.setText(contact.getFirstName());
         fnPanel = new JPanel();
         fnPanel.add(fnLabel);
         fnPanel.add(fnField);
 
         lnLabel = new JLabel("Last name");
         lnField = new JTextField(20);
-        lnField.setText(contact.getLastName());
         lnPanel = new JPanel();
         lnPanel.add(lnLabel);
         lnPanel.add(lnField);
 
         cityLabel = new JLabel("City");
         cityField = new JTextField(20);
-        cityField.setText(contact.getCity());
         cityPanel = new JPanel();
         cityPanel.add(cityLabel);
         cityPanel.add(cityField);
@@ -67,16 +64,6 @@ public class UpdateContactView extends JFrame {
         fieldsPanel.add(cityPanel);
 
         model = new DefaultTableModel(headers, 0);
-        int phoneCount = contact.getPhoneNumbers().size();
-        for (int i = 0; i < phoneCount; i++) {
-            model.addRow(new String[]{
-                contact.getPhoneNumbers().get(i).getRegionCode(),
-                contact.getPhoneNumbers().get(i).getPhoneNumber()
-            });
-        }
-        for (int i = phoneCount; i < 6; i++) {
-            model.addRow(new String[]{"", ""});
-        }
 
         table = new JTable(model);
         table.getTableHeader().setReorderingAllowed(false);
@@ -91,7 +78,7 @@ public class UpdateContactView extends JFrame {
         checkBoxPanel.setLayout(new BoxLayout(checkBoxPanel, BoxLayout.Y_AXIS));
         JScrollPane scrollCheckBoxPanel = new JScrollPane(checkBoxPanel);
         scrollCheckBoxPanel.setBorder(null);
-        groupsLabel = new JLabel("Add the contact to Groups:");
+        groupsLabel = new JLabel("Contact Groups:");
         groupsLabel.add(Box.createVerticalStrut(5));
         checkBoxPanel.add(groupsLabel);
 
@@ -130,7 +117,6 @@ public class UpdateContactView extends JFrame {
         return saveButton;
     }
 
-    // Text field
     public JTextField getFirstNameField() {
         return fnField;
     }
@@ -155,12 +141,11 @@ public class UpdateContactView extends JFrame {
         return checkBoxList;
     }
 
-    public void renderGroups(ArrayList<Group> groups) {
-        for (Group group : groups) {
-            JCheckBox cb = new JCheckBox(group.getName());
-            checkBoxList.add(cb);
-            checkBoxPanel.add(cb);
-        }
-        checkBoxList.get(0).setSelected(true);
+    public Contact getContact() {
+        return contact;
+    }
+
+    public JPanel getCheckBoxPanel() {
+        return checkBoxPanel;
     }
 }

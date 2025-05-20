@@ -2,6 +2,7 @@ package Modal;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class Group implements Serializable {
 
@@ -52,4 +53,33 @@ public class Group implements Serializable {
     public void addContact(Contact c) {
         contactList.add(c);
     }
+
+    public void deleteContact(Contact c) {
+        Iterator<Contact> iterator = contactList.iterator();
+        while (iterator.hasNext()) {
+            Contact contact = iterator.next();
+            if (contact.compareTo(c) == 0) {
+                iterator.remove();
+            }
+        }
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+
+        Group other = (Group) obj;
+        return name != null && name.equalsIgnoreCase(other.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return name != null ? name.toLowerCase().hashCode() : 0;
+    }
+
 }
