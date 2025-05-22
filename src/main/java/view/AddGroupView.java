@@ -1,6 +1,7 @@
 package view;
 
 import Components.Title;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import javax.swing.*;
 import javax.swing.table.*;
@@ -14,7 +15,9 @@ public class AddGroupView extends JFrame {
     private DefaultTableModel model;
     private String[] headers = {"Contact Name", "City", "Add to Group"};
     private JButton saveBtn, cancelBtn;
-    private JPanel field1Panel, field2Panel, btnPanels, mainPanel;
+    private JTextField searchInput;
+    JCheckBox selectAll;
+    private JPanel field1Panel, field2Panel, btnPanels, usefuelButtonsPanel, mainPanel;
 
     public AddGroupView() {
         nameLabel = new JLabel("Group Name");
@@ -48,6 +51,12 @@ public class AddGroupView extends JFrame {
         table.setRowHeight(20);
         table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
+        usefuelButtonsPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+        searchInput = new JTextField(15);
+        usefuelButtonsPanel.add(searchInput);
+        selectAll = new JCheckBox("Select All");
+        usefuelButtonsPanel.add(selectAll);
+
         JPanel textAreaPanel = new JPanel();
         textAreaPanel.setLayout(new BoxLayout(textAreaPanel, BoxLayout.Y_AXIS));
         textAreaPanel.add(new JScrollPane(table));
@@ -62,6 +71,7 @@ public class AddGroupView extends JFrame {
         mainPanel.add(Title.createTitle("New Group"));
         mainPanel.add(field1Panel);
         mainPanel.add(field2Panel);
+        mainPanel.add(usefuelButtonsPanel);
         mainPanel.add(textAreaPanel);
         mainPanel.add(btnPanels);
 
@@ -97,4 +107,13 @@ public class AddGroupView extends JFrame {
     public JButton getCancelButton() {
         return cancelBtn;
     }
+
+    public JTextField getSearchInput() {
+        return searchInput;
+    }
+
+    public JCheckBox getSelectAllCB() {
+        return selectAll;
+    }
+
 }

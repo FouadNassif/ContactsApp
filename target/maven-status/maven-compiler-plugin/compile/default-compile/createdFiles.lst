@@ -5,6 +5,7 @@ view\ContactView$1.class
 Controller\ContactDetailsController.class
 Observable\GroupObservable.class
 view\GroupView$2.class
+Controller\AddGroupController$4.class
 Modal\Group.class
 Controller\ContactController$5.class
 Controller\MainController$1.class
@@ -16,6 +17,7 @@ Controller\ContactController$8.class
 Controller\AddContactController.class
 UsefulFunctions\ErrorFunctions.class
 Modal\PhoneNumber.class
+Components\SelectAll.class
 Sorting\SortByCity.class
 Controller\MainController$2.class
 Components\Title.class
@@ -34,13 +36,16 @@ Modal\Contact.class
 Controller\MainController.class
 view\UpdateGroupView$1.class
 Controller\ContactController$7.class
+Controller\AddGroupController$3.class
 Observable\ContactObservable.class
 Sorting\ContactSorter.class
 view\UpdateContactView.class
 Controller\UpdateContactController$2.class
 UsefulFunctions\StylingFunctions.class
 java3\nfa035_fouadnassif_2339t\UsefulFunctions.class
+Components\SelectAll$1.class
 Sorting\SortByLastName.class
+Controller\AddGroupController$2.class
 Controller\ContactDetailsController$1.class
 Controller\UpdateContactController$1.class
 view\GroupView$1.class
