@@ -1,8 +1,8 @@
 package view;
 
+import Components.Title;
 import Modal.Contact;
 import java.awt.Dimension;
-import java.awt.Font;
 import java.util.ArrayList;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -20,9 +20,9 @@ import javax.swing.table.DefaultTableModel;
 
 public class UpdateContactView extends JFrame {
 
-    private JLabel title, fnLabel, lnLabel, cityLabel, title2, groupsLabel;
+    private JLabel fnLabel, lnLabel, cityLabel, title2, groupsLabel;
     private JTextField fnField, lnField, cityField;
-    private JPanel titlePanel, fnPanel, lnPanel, cityPanel, fieldsPanel, tablePanel, buttonsPanel, allPanel, checkBoxPanel, mainPanel;
+    private JPanel fnPanel, lnPanel, cityPanel, fieldsPanel, tablePanel, buttonsPanel, allPanel, checkBoxPanel, mainPanel;
     private JTable table;
     private String[] headers = {"Region Code", "Phone number"};
     private DefaultTableModel model;
@@ -32,11 +32,6 @@ public class UpdateContactView extends JFrame {
 
     public UpdateContactView(Contact contact) {
         this.contact = contact;
-        title = new JLabel("Contact Management");
-        title.setFont(new Font("SansSerif", Font.BOLD, 18));
-        titlePanel = new JPanel();
-        titlePanel.add(title);
-
         title2 = new JLabel("New Contact");
 
         fnLabel = new JLabel("First name");
@@ -97,11 +92,12 @@ public class UpdateContactView extends JFrame {
 
         mainPanel = new JPanel();
         mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.LINE_AXIS));
+        mainPanel.add(Title.createTitle("Update Contact"));
         mainPanel.add(title2);
         mainPanel.add(allPanel);
         mainPanel.setBorder(new EmptyBorder(20, 10, 10, 20));
         add(mainPanel);
-        setTitle("Contact View");
+        setTitle("Update Contact");
         setSize(500, 460);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);

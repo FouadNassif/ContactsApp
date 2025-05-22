@@ -73,7 +73,7 @@ public class GroupController implements Observer {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (selectedRow != - 1) {
-                    new UpdateGroupController(new UpdateGroupView(), groups.get(selectedRow));
+                    new UpdateGroupController(new UpdateGroupView(), observable, groups.get(selectedRow), selectedRow);
                 } else {
                     ErrorFunctions.showErrorDialogMessage("Please Select a group to Delete", "Error Message");
                 }

@@ -81,11 +81,11 @@ public class ContactDetailsView extends JFrame {
 
         mainPanel = new JPanel();
         mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
-        mainPanel.add(Title.createTitle());
+        mainPanel.add(Title.createTitle("Contact Details"));
         mainPanel.add(allPanel);
         mainPanel.setBorder(new EmptyBorder(20, 10, 10, 20));
         add(mainPanel);
-        setTitle("Contact View");
+        setTitle("Contact Details");
         setSize(500, 460);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);

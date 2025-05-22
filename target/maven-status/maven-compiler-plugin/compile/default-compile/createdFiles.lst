@@ -52,6 +52,7 @@ Components\CancelButton.class
 Controller\ContactController$3.class
 java3\nfa035_fouadnassif_2339t\GlobalVariables.class
 java3\nfa035_fouadnassif_2339t\NFA035_FouadNassif_2339t.class
+Controller\UpdateGroupController$1.class
 view\AddContactView$1.class
 Controller\ContactController$6.class
 Controller\AddGroupController.class

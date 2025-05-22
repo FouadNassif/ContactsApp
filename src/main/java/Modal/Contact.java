@@ -83,6 +83,10 @@ public class Contact extends Observable implements Serializable, Comparable {
         return phoneNumbers;
     }
 
+    public String getFullName() {
+        return firstName + "  " + lastName;
+    }
+
     @Override
     public int compareTo(Object o) {
         Contact c = (Contact) o;
@@ -127,18 +131,19 @@ public class Contact extends Observable implements Serializable, Comparable {
         if (this == obj) {
             return true;
         }
-        if (obj == null || getClass() != obj.getClass()) {
+        if (!(obj instanceof Contact)) {
             return false;
         }
-        Contact contact = (Contact) obj;
-        return firstName.equals(contact.firstName)
-                && lastName.equals(contact.lastName)
-                && phoneNumbers.equals(contact.phoneNumbers); // or use a unique ID if available
+        Contact other = (Contact) obj;
+
+        return this.firstName.equalsIgnoreCase(other.firstName)
+                && this.lastName.equalsIgnoreCase(other.lastName)
+                && this.phoneNumbers.equals(other.phoneNumbers);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(firstName, lastName, phoneNumbers); // or use unique ID
+        return Objects.hash(firstName.toLowerCase(), lastName.toLowerCase(), phoneNumbers);
     }
 
 }

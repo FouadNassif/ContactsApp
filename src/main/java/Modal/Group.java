@@ -54,6 +54,10 @@ public class Group implements Serializable {
         contactList.add(c);
     }
 
+    public void clearAllContacts() {
+        contactList.clear();
+    }
+
     public void deleteContact(Contact c) {
         Iterator<Contact> iterator = contactList.iterator();
         while (iterator.hasNext()) {
@@ -81,5 +85,4 @@ public class Group implements Serializable {
     public int hashCode() {
         return name != null ? name.toLowerCase().hashCode() : 0;
     }
-
 }

@@ -19,11 +19,6 @@ public class ContactView extends JFrame {
     private DefaultTableModel model;
 
     public ContactView() {
-        title = new JLabel("Contact Management");
-        title.setFont(new Font("SansSerif", Font.BOLD, 18));
-        titlePanel = new JPanel();
-        titlePanel.add(title);
-
         title2 = new JLabel("Contacts");
         sFNButton = new JButton("Sort By First Name");
         sLNButton = new JButton("Sort By Last Name");
@@ -89,13 +84,13 @@ public class ContactView extends JFrame {
         mainPanel.setBorder(new EmptyBorder(20, 20, 20, 20));
         JPanel tempPanel = new JPanel();
         tempPanel.setLayout(new BorderLayout());
-        tempPanel.add(Title.createTitle(), BorderLayout.NORTH);
+        tempPanel.add(Title.createTitle("Contact Management"), BorderLayout.NORTH);
         tempPanel.add(mainPanel, BorderLayout.CENTER);
 
         add(tempPanel);
 
-        setTitle("Contact View");
-        setSize(520, 450);
+        setTitle("Contacts");
+        setSize(550, 500);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setVisible(true);

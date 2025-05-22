@@ -1,5 +1,6 @@
 package view;
 
+import Components.Title;
 import java.awt.Font;
 import javax.swing.*;
 import javax.swing.table.*;
@@ -12,7 +13,6 @@ public class AddGroupView extends JFrame {
     private JTable table;
     private DefaultTableModel model;
     private String[] headers = {"Contact Name", "City", "Add to Group"};
-
     private JButton saveBtn, cancelBtn;
     private JPanel field1Panel, field2Panel, btnPanels, mainPanel;
 
@@ -59,7 +59,7 @@ public class AddGroupView extends JFrame {
         btnPanels.add(cancelBtn);
         mainPanel = new JPanel();
         mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
-
+        mainPanel.add(Title.createTitle("New Group"));
         mainPanel.add(field1Panel);
         mainPanel.add(field2Panel);
         mainPanel.add(textAreaPanel);

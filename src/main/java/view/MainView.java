@@ -30,7 +30,7 @@ public class MainView extends JFrame {
 
         mainPanel = new JPanel();
         mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.PAGE_AXIS));
-        mainPanel.add(Title.createTitle());
+        mainPanel.add(Title.createTitle("Contacts Management"));
         mainPanel.add(panel1);
 
         setSize(500, 400);

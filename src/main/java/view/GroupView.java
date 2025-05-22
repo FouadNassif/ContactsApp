@@ -21,11 +21,10 @@ public class GroupView extends JFrame {
     private JButton addGroupBtn, updateButton, deleteButton;
 
     private JLabel title, title2;
-    private JPanel titlePanel, inputPanel, filterPanel, searchPanel, managePanel, mainPanel;
+    private JPanel titlePanel, filterPanel, searchPanel, managePanel, mainPanel;
     private JTable table;
     private String[] headers = {"Group Name", "Nb. of Contacts"};
     private DefaultTableModel model;
-
     private JTable contactTable;
     private DefaultTableModel contactModel;
     private String[] contactHeaders = {"Contact Name", "Contact City"};
@@ -103,12 +102,12 @@ public class GroupView extends JFrame {
 
         JPanel tempPanel = new JPanel();
         tempPanel.setLayout(new BorderLayout());
-        tempPanel.add(Title.createTitle(), BorderLayout.NORTH);
+        tempPanel.add(Title.createTitle("Group Management"), BorderLayout.NORTH);
         tempPanel.add(mainPanel, BorderLayout.CENTER);
 
         add(tempPanel);
 
-        setTitle("Group View");
+        setTitle("Groups");
         setSize(520, 450);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);

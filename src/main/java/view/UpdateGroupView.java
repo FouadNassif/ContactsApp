@@ -1,5 +1,6 @@
 package view;
 
+import Components.Title;
 import java.awt.Font;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -44,6 +45,7 @@ public class UpdateGroupView extends JFrame {
                 return column == 2;
             }
 
+            @Override
             public Class getColumnClass(int columnIndex) {
                 return columnIndex == 2 ? Boolean.class : String.class;
             }
@@ -68,14 +70,14 @@ public class UpdateGroupView extends JFrame {
         btnPanels.add(cancelBtn);
         mainPanel = new JPanel();
         mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
-
+        mainPanel.add(Title.createTitle("Update Group"));
         mainPanel.add(field1Panel);
         mainPanel.add(field2Panel);
         mainPanel.add(textAreaPanel);
         mainPanel.add(btnPanels);
 
         add(mainPanel);
-        setTitle("Contact View");
+        setTitle("Update Group");
         setSize(520, 450);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -85,6 +87,10 @@ public class UpdateGroupView extends JFrame {
 
     public JButton getCancelButton() {
         return cancelBtn;
+    }
+
+    public JButton getSaveButton() {
+        return saveBtn;
     }
 
     public JTextField getNameField() {
