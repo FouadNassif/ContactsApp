@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import javax.swing.JLabel;
 import view.ContactDetailsView;
+import view.ShareContactView;
 
 public class ContactDetailsController {
 
@@ -18,6 +19,12 @@ public class ContactDetailsController {
         contactDetailsView.getBackButton().addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 contactDetailsView.dispose();
+            }
+        });
+
+        contactDetailsView.getShareButton().addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                new ShareContactController(new ShareContactView(contactDetailsView.getContact()));
             }
         });
 

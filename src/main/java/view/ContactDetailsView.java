@@ -15,7 +15,7 @@ public class ContactDetailsView extends JFrame {
     private JTable table;
     private String[] headers = {"Region Code", "Phone number"};
     private DefaultTableModel model;
-    private JButton backButton;
+    private JButton backButton, shareButton;
     private Contact currentContact;
 
     public ContactDetailsView(Contact contact) {
@@ -69,8 +69,10 @@ public class ContactDetailsView extends JFrame {
         checkBoxPanel.add(groupsLabel);
 
         backButton = new JButton("Back");
+        shareButton = new JButton("Share");
         buttonsPanel = new JPanel();
         buttonsPanel.add(backButton);
+        buttonsPanel.add(shareButton);
 
         allPanel = new JPanel();
         allPanel.setLayout(new BoxLayout(allPanel, BoxLayout.Y_AXIS));
@@ -103,5 +105,9 @@ public class ContactDetailsView extends JFrame {
 
     public Contact getContact() {
         return currentContact;
+    }
+
+    public JButton getShareButton() {
+        return shareButton;
     }
 }

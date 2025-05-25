@@ -30,7 +30,7 @@ public class PhoneNumber implements Comparable, Serializable {
 
     @Override
     public String toString() {
-        return "PhoneNumber{" + "regionCode=" + regionCode + ", phoneNumber=" + phoneNumber + '}';
+        return regionCode + " " + phoneNumber;
     }
 
     @Override

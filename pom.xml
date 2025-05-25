@@ -10,4 +10,18 @@
         <maven.compiler.release>24</maven.compiler.release>
         <exec.mainClass>java3.nfa035_fouadnassif_2339t.NFA035_FouadNassif_2339t</exec.mainClass>
     </properties>
+    
+      <dependencies>
+        <dependency>
+            <groupId>com.google.zxing</groupId>
+            <artifactId>core</artifactId>
+            <version>3.5.2</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.google.zxing</groupId>
+            <artifactId>javase</artifactId>
+            <version>3.5.2</version>
+        </dependency>
+    </dependencies>
 </project>

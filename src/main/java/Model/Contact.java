@@ -126,6 +126,18 @@ public class Contact extends Observable implements Serializable, Comparable {
         return contactGroups;
     }
 
+    public String shareContact() {
+        String contactData = "Name: " + firstName + " " + lastName + "\n";
+        if (!"".equals(city) && !city.isEmpty()) {
+            contactData += "City: " + city + "\n";
+        }
+        contactData += "Phone Numbers: \n";
+        for (int i = 0; i < phoneNumbers.size(); i++) {
+            contactData += "\t-Phone " + (i + 1) + ": " + phoneNumbers.get(i).toString() + "\n";
+        }
+        return contactData;
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {

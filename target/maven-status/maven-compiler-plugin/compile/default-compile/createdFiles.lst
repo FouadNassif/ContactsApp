@@ -5,6 +5,7 @@ Model\PhoneNumber.class
 view\ContactView$1.class
 Controller\ContactDetailsController.class
 Observable\GroupObservable.class
+Controller\ContactDetailsController$2.class
 view\GroupView$2.class
 Controller\AddGroupController$4.class
 Controller\ContactController$5.class
@@ -33,6 +34,7 @@ Controller\UpdateGroupController.class
 Controller\GroupController$2.class
 Sorting\SortByFirstName.class
 Controller\MainController.class
+view\ShareContactView.class
 view\UpdateGroupView$1.class
 Controller\ContactController$7.class
 Controller\AddGroupController$3.class
@@ -42,6 +44,7 @@ view\UpdateContactView.class
 Controller\UpdateContactController$2.class
 UsefulFunctions\StylingFunctions.class
 java3\nfa035_fouadnassif_2339t\UsefulFunctions.class
+Controller\ShareContactController$1.class
 Components\SelectAll$1.class
 Sorting\SortByLastName.class
 Controller\AddGroupController$2.class
@@ -56,10 +59,12 @@ Components\CancelButton.class
 Controller\ContactController$3.class
 java3\nfa035_fouadnassif_2339t\GlobalVariables.class
 java3\nfa035_fouadnassif_2339t\NFA035_FouadNassif_2339t.class
+UsefulFunctions\QrCode.class
 Controller\UpdateGroupController$1.class
 Model\Contact.class
 view\AddContactView$1.class
 Controller\ContactController$6.class
+Controller\ShareContactController.class
 Controller\AddGroupController.class
 Controller\ContactController.class
 UsefulFunctions\FileFunctions.class
