@@ -1,7 +1,7 @@
 package view;
 
 import Components.Title;
-import Modal.Contact;
+import Model.Contact;
 import java.awt.Dimension;
 import java.util.ArrayList;
 import javax.swing.Box;
@@ -20,7 +20,7 @@ import javax.swing.table.DefaultTableModel;
 
 public class UpdateContactView extends JFrame {
 
-    private JLabel fnLabel, lnLabel, cityLabel, title2, groupsLabel;
+    private JLabel fnLabel, lnLabel, cityLabel, groupsLabel;
     private JTextField fnField, lnField, cityField;
     private JPanel fnPanel, lnPanel, cityPanel, fieldsPanel, tablePanel, buttonsPanel, allPanel, checkBoxPanel, mainPanel;
     private JTable table;
@@ -32,7 +32,6 @@ public class UpdateContactView extends JFrame {
 
     public UpdateContactView(Contact contact) {
         this.contact = contact;
-        title2 = new JLabel("New Contact");
 
         fnLabel = new JLabel("First name");
         fnField = new JTextField(20);
@@ -91,14 +90,13 @@ public class UpdateContactView extends JFrame {
         allPanel.add(buttonsPanel);
 
         mainPanel = new JPanel();
-        mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.LINE_AXIS));
+        mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
         mainPanel.add(Title.createTitle("Update Contact"));
-        mainPanel.add(title2);
         mainPanel.add(allPanel);
         mainPanel.setBorder(new EmptyBorder(20, 10, 10, 20));
         add(mainPanel);
         setTitle("Update Contact");
-        setSize(500, 460);
+        setSize(550, 530);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setVisible(true);

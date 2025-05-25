@@ -1,6 +1,6 @@
 package Observable;
 
-import Modal.Group;
+import Model.Group;
 import java.util.Observable;
 
 public class GroupObservable extends Observable {

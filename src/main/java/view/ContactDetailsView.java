@@ -1,8 +1,8 @@
 package view;
 
 import Components.Title;
-import Modal.Contact;
-import Modal.PhoneNumber;
+import Model.Contact;
+import Model.PhoneNumber;
 import java.awt.*;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;

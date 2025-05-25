@@ -1,8 +1,8 @@
 package Controller;
 
 import Components.CancelButton;
-import Modal.Contact;
-import Modal.Group;
+import Model.Contact;
+import Model.Group;
 import Observable.GroupObservable;
 import UsefulFunctions.ErrorFunctions;
 import UsefulFunctions.FileFunctions;
@@ -24,12 +24,10 @@ public class UpdateGroupController {
     private ArrayList<Contact> renderContactsList = new ArrayList<>();
     private ArrayList<Contact> allContacts = FileFunctions.emptyFileInList(CONTACT_FILE);
     private ArrayList<Group> allGroup = FileFunctions.emptyFileInListGroup(GROUP_FILE);
-    private int selectedGroupIndex;
 
     private GroupObservable observable;
 
     public UpdateGroupController(UpdateGroupView view, GroupObservable observable, Group group, int selectedGroupIndex) {
-        this.selectedGroupIndex = selectedGroupIndex;
         this.updateGroupView = view;
         currentGroupContacts = new ArrayList<>(group.getContactList());
         this.observable = observable;
@@ -40,10 +38,16 @@ public class UpdateGroupController {
         renderAllContacts();
         updateGroupView.getSaveButton().addActionListener(new ActionListener() {
             JTextField[] fieldList = {updateGroupView.getNameField(), updateGroupView.getDescField()};
+            String fieldName = fieldList[0].getText();
             Border defaultBorder = new JTextField().getBorder();
 
             @Override
             public void actionPerformed(ActionEvent e) {
+                if (fieldName.equals("No groups")) {
+
+                    ErrorFunctions.showErrorDialogMessage("Sorry, but you can't edit the Group Name!", "Error Message");
+                    return;
+                }
                 if (!StylingFunctions.checkField(fieldList, defaultBorder)) {
                     ErrorFunctions.showErrorDialogMessage("A Group requires a Name and Description!", "Error Message");
                     return;

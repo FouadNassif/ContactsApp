@@ -1,7 +1,7 @@
 package Controller;
 
-import Modal.Contact;
-import Modal.Group;
+import Model.Contact;
+import Model.Group;
 import Observable.GroupObservable;
 import UsefulFunctions.ErrorFunctions;
 import UsefulFunctions.FileFunctions;
@@ -11,6 +11,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
+import static java3.nfa035_fouadnassif_2339t.GlobalVariables.GROUP_FILE;
 import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -24,7 +25,7 @@ public class GroupController implements Observer {
     private ArrayList<Group> groups = new ArrayList<Group>();
     private GroupObservable observable = new GroupObservable();
     int selectedRow = -1;
-    File f = new File("Groups.obj");
+    File groups_file = GROUP_FILE;
 
     public GroupController(GroupView view) {
         observable.addObserver(this);
@@ -86,7 +87,7 @@ public class GroupController implements Observer {
     private void renderGroups() {
         groups.clear();
         groupView.getTableModel().setRowCount(0);
-        ArrayList<Group> temp = FileFunctions.emptyFileInListGroup(f);
+        ArrayList<Group> temp = FileFunctions.emptyFileInListGroup(groups_file);
         if (!temp.isEmpty()) {
             groups.addAll(temp);
             for (Group group : groups) {
@@ -105,7 +106,7 @@ public class GroupController implements Observer {
     private void deleteGroup() {
         groups.remove(groups.get(selectedRow));
         ArrayList<Group> tempList = new ArrayList<Group>(groups);
-        FileFunctions.saveToFileGroup(tempList, f);
+        FileFunctions.saveToFileGroup(tempList, groups_file);
         groupView.getContactTableModel().setRowCount(0);
         renderGroups();
     }
@@ -113,5 +114,6 @@ public class GroupController implements Observer {
     @Override
     public void update(Observable o, Object arg) {
         renderGroups();
+        groupView.getContactTableModel().setRowCount(0);
     }
 }

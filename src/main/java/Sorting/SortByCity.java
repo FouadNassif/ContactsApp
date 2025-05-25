@@ -1,6 +1,6 @@
 package Sorting;
 
-import Modal.Contact;
+import Model.Contact;
 import java.util.Comparator;
 
 public class SortByCity implements Comparator {

@@ -1,6 +1,6 @@
 package Controller;
 
-import Modal.Contact;
+import Model.Contact;
 import Observable.ContactObservable;
 import Sorting.ContactSorter;
 import UsefulFunctions.ErrorFunctions;
@@ -12,6 +12,7 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
+import static java3.nfa035_fouadnassif_2339t.GlobalVariables.CONTACT_FILE;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.event.DocumentEvent;
@@ -32,7 +33,7 @@ public class ContactController implements Observer {
     ArrayList<Contact> renderContactList = new ArrayList<Contact>();
     private int selectedRow = -1;
     private Contact selectedContact = new Contact();
-    File contactsFile = new File("Contacts.obj");
+    File contactsFile = CONTACT_FILE;
 
     public ContactController(ContactView view) {
         this.contactView = view;

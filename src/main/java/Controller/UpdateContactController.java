@@ -1,9 +1,9 @@
 package Controller;
 
 import Components.CancelButton;
-import Modal.Contact;
-import Modal.Group;
-import Modal.PhoneNumber;
+import Model.Contact;
+import Model.Group;
+import Model.PhoneNumber;
 import Observable.ContactObservable;
 import UsefulFunctions.ErrorFunctions;
 import UsefulFunctions.FileFunctions;
@@ -209,7 +209,9 @@ public class UpdateContactController {
 
     private void getSelectedGroups() {
         ArrayList<JCheckBox> checkBoxList = updateContactView.getCheckBoxes();
-
+        if (!checkBoxList.getFirst().isSelected()) {
+            checkBoxList.getFirst().setSelected(true);
+        }
         for (JCheckBox checkBox : checkBoxList) {
             for (Group group : allGroups) {
                 if (group.getName().equals(checkBox.getText())) {
@@ -221,6 +223,7 @@ public class UpdateContactController {
                 }
             }
         }
+
         renderGroupList.clear();
         renderGroupList.addAll(renderGroupList);
         FileFunctions.saveToFileGroup(allGroups, GROUP_FILE);

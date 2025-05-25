@@ -1,9 +1,9 @@
 package java3.nfa035_fouadnassif_2339t;
 
 import Controller.MainController;
-import Modal.Contact;
-import Modal.Group;
-import Modal.PhoneNumber;
+import Model.Contact;
+import Model.Group;
+import Model.PhoneNumber;
 import UsefulFunctions.FileFunctions;
 import java.io.File;
 import java.io.IOException;
@@ -46,7 +46,7 @@ public class NFA035_FouadNassif_2339t {
             if (!GlobalVariables.GROUP_FILE.exists()) {
                 GlobalVariables.GROUP_FILE.createNewFile();
                 ArrayList<Group> temp = new ArrayList<>();
-                temp.add(new Group("No groups", ""));
+                temp.add(new Group("No groups", "NO DESCRIPTION"));
                 FileFunctions.saveToFileGroup(temp, GlobalVariables.GROUP_FILE);
                 temp.clear();
             }

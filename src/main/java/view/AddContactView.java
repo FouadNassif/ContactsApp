@@ -1,7 +1,7 @@
 package view;
 
 import Components.Title;
-import Modal.Group;
+import Model.Group;
 import java.awt.Dimension;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;

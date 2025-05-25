@@ -4,7 +4,7 @@
  */
 package Observable;
 
-import Modal.Contact;
+import Model.Contact;
 import java.util.Observable;
 
 /**

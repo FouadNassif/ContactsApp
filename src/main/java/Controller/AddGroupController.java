@@ -1,8 +1,8 @@
 package Controller;
 
 import Components.CancelButton;
-import Modal.Contact;
-import Modal.Group;
+import Model.Contact;
+import Model.Group;
 import Observable.GroupObservable;
 import UsefulFunctions.ErrorFunctions;
 import UsefulFunctions.FileFunctions;
@@ -10,6 +10,7 @@ import UsefulFunctions.StylingFunctions;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.HashSet;
 import static java3.nfa035_fouadnassif_2339t.GlobalVariables.*;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
@@ -29,6 +30,7 @@ public class AddGroupController {
     private ArrayList<Contact> allContacts = FileFunctions.emptyFileInList(CONTACT_FILE);
     private ArrayList<Contact> checkedContacts = new ArrayList<>();
     private ArrayList<Contact> renderedContacts = new ArrayList<>();
+    private ArrayList<Group> allGroups = FileFunctions.emptyFileInListGroup(GROUP_FILE);
 
     public AddGroupController(AddGroupView view, GroupObservable observable) {
         this.observable = observable;
@@ -43,6 +45,8 @@ public class AddGroupController {
             public void actionPerformed(ActionEvent e) {
                 if (!StylingFunctions.checkField(fieldList, defaultBorder)) {
                     ErrorFunctions.showErrorDialogMessage("A Group requires a Name and Description!", "Error Message");
+                    return;
+                } else if (!checkForDuplicate(fieldList[0].getText())) {
                     return;
                 }
 
@@ -149,4 +153,16 @@ public class AddGroupController {
         getCheckedBoxes();
     }
 
+    private boolean checkForDuplicate(String newGroupName) {
+        HashSet<String> groupSet = new HashSet<>();
+        for (Group group : allGroups) {
+            groupSet.add(group.getName().toLowerCase());
+        }
+        if (groupSet.contains(newGroupName.toLowerCase().trim())) {
+            ErrorFunctions.showErrorDialogMessage("You already have a group with that name!", "Error Message");
+            return false;
+        } else {
+            return true;
+        }
+    }
 }

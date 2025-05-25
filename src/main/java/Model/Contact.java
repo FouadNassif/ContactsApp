@@ -1,4 +1,4 @@
-package Modal;
+package Model;
 
 import UsefulFunctions.FileFunctions;
 import java.io.Serializable;

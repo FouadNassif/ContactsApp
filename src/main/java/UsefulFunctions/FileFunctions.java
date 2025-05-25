@@ -1,7 +1,7 @@
 package UsefulFunctions;
 
-import Modal.Contact;
-import Modal.Group;
+import Model.Contact;
+import Model.Group;
 import java.io.EOFException;
 import java.io.File;
 import java.io.FileInputStream;

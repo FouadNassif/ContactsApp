@@ -1,9 +1,9 @@
 package Controller;
 
 import Components.CancelButton;
-import Modal.Contact;
-import Modal.Group;
-import Modal.PhoneNumber;
+import Model.Contact;
+import Model.Group;
+import Model.PhoneNumber;
 import Observable.ContactObservable;
 import UsefulFunctions.ErrorFunctions;
 import UsefulFunctions.FileFunctions;
@@ -32,10 +32,8 @@ public class AddContactController {
         this.observable = observable;
         renderGroups();
 
-        // Cancel Function
         addContactView.getCancelButton().addActionListener(new CancelButton(addContactView));
 
-        // Save Function
         addContactView.getSaveButton().addActionListener(new ActionListener() {
             JTextField[] fieldList = {addContactView.getFirstNameField(), addContactView.getLastNameField()};
             Border defaultBorder = new JTextField().getBorder();
@@ -149,6 +147,9 @@ public class AddContactController {
 
             private void getSelectedGroups() {
                 ArrayList<JCheckBox> checkBoxList = addContactView.getCheckBoxes();
+                if (!checkBoxList.getFirst().isSelected()) {
+                    checkBoxList.getFirst().setSelected(true);
+                }
                 for (JCheckBox checkBox : checkBoxList) {
                     if (checkBox.isSelected()) {
                         groups.get(checkBoxList.indexOf(checkBox)).addContact(newContact);
