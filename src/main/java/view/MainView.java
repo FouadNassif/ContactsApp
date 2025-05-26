@@ -6,8 +6,7 @@ import javax.swing.*;
 
 public class MainView extends JFrame {
 
-    private final JButton contactsButton;
-    private final JButton groupsButton;
+    private final JButton contactsButton, groupsButton, ImpExpButton;
     private final JPanel buttonsPanel, bluePanel, panel1, mainPanel;
 
     public MainView() {
@@ -15,10 +14,13 @@ public class MainView extends JFrame {
         contactsButton = new JButton("Contacts");
 
         groupsButton = new JButton("Groups");
+
+        ImpExpButton = new JButton("Import / Export");
         buttonsPanel = new JPanel(new GridLayout(0, 1));
 
         buttonsPanel.add(contactsButton);
         buttonsPanel.add(groupsButton);
+        buttonsPanel.add(ImpExpButton);
 
         bluePanel = new JPanel();
         bluePanel.setPreferredSize(new Dimension(350, 300));
@@ -49,4 +51,9 @@ public class MainView extends JFrame {
     public JButton getGroupButton() {
         return groupsButton;
     }
+
+    public JButton getImpExpButton() {
+        return ImpExpButton;
+    }
+
 }

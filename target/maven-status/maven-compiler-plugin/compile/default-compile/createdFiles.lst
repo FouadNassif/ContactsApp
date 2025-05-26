@@ -12,6 +12,8 @@ Controller\ContactController$5.class
 Controller\MainController$1.class
 view\ContactView.class
 Model\Group.class
+view\FileUploadView.class
+Controller\FileUploadController$1.class
 Controller\AddContactController$1.class
 view\GroupView.class
 Controller\GroupController$1.class
@@ -44,6 +46,7 @@ view\UpdateContactView.class
 Controller\UpdateContactController$2.class
 UsefulFunctions\StylingFunctions.class
 java3\nfa035_fouadnassif_2339t\UsefulFunctions.class
+Controller\FileUploadController$2.class
 Controller\ShareContactController$1.class
 Components\SelectAll$1.class
 Sorting\SortByLastName.class
@@ -54,12 +57,14 @@ view\GroupView$1.class
 Controller\GroupController$3.class
 UsefulFunctions\TableFunctions.class
 view\AddContactView.class
+Controller\MainController$3.class
 view\AddGroupView.class
 Components\CancelButton.class
 Controller\ContactController$3.class
 java3\nfa035_fouadnassif_2339t\GlobalVariables.class
 java3\nfa035_fouadnassif_2339t\NFA035_FouadNassif_2339t.class
 UsefulFunctions\QrCode.class
+Controller\FileUploadController.class
 Controller\UpdateGroupController$1.class
 Model\Contact.class
 view\AddContactView$1.class

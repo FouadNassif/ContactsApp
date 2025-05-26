@@ -22,6 +22,11 @@ public class Group implements Serializable {
         contactList = new ArrayList<>();
     }
 
+    public Group(Group original) {
+        this.name = original.name;
+        this.contactList = new ArrayList<>(original.contactList);
+    }
+
     public Group() {
         contactList = new ArrayList<>();
     }

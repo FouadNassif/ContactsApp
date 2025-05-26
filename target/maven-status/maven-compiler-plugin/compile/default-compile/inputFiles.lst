@@ -5,6 +5,7 @@ C:\University\JAVA3\NFA035_FouadNassif_2339t\src\main\java\Controller\AddContact
 C:\University\JAVA3\NFA035_FouadNassif_2339t\src\main\java\Controller\AddGroupController.java
 C:\University\JAVA3\NFA035_FouadNassif_2339t\src\main\java\Controller\ContactController.java
 C:\University\JAVA3\NFA035_FouadNassif_2339t\src\main\java\Controller\ContactDetailsController.java
+C:\University\JAVA3\NFA035_FouadNassif_2339t\src\main\java\Controller\FileUploadController.java
 C:\University\JAVA3\NFA035_FouadNassif_2339t\src\main\java\Controller\GroupController.java
 C:\University\JAVA3\NFA035_FouadNassif_2339t\src\main\java\Controller\MainController.java
 C:\University\JAVA3\NFA035_FouadNassif_2339t\src\main\java\Controller\ShareContactController.java
@@ -32,6 +33,7 @@ C:\University\JAVA3\NFA035_FouadNassif_2339t\src\main\java\view\AddContactView.j
 C:\University\JAVA3\NFA035_FouadNassif_2339t\src\main\java\view\AddGroupView.java
 C:\University\JAVA3\NFA035_FouadNassif_2339t\src\main\java\view\ContactDetailsView.java
 C:\University\JAVA3\NFA035_FouadNassif_2339t\src\main\java\view\ContactView.java
+C:\University\JAVA3\NFA035_FouadNassif_2339t\src\main\java\view\FileUploadView.java
 C:\University\JAVA3\NFA035_FouadNassif_2339t\src\main\java\view\GroupView.java
 C:\University\JAVA3\NFA035_FouadNassif_2339t\src\main\java\view\MainView.java
 C:\University\JAVA3\NFA035_FouadNassif_2339t\src\main\java\view\ShareContactView.java
