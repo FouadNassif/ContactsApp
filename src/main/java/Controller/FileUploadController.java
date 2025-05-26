@@ -41,9 +41,28 @@ public class FileUploadController {
         fileUploadView.getExportBtn().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                exportFile(CONTACT_FILE.getAbsolutePath());
-            }
+                String[] options = {"Export Contacts", "Export Groups", "Cancel"};
+                int choice = javax.swing.JOptionPane.showOptionDialog(
+                        fileUploadView,
+                        "What would you like to export?",
+                        "Export Options",
+                        javax.swing.JOptionPane.DEFAULT_OPTION,
+                        javax.swing.JOptionPane.QUESTION_MESSAGE,
+                        null,
+                        options,
+                        options[0]);
 
+                switch (choice) {
+                    case 0:
+                        exportFile(CONTACT_FILE.getAbsolutePath());
+                        break;
+                    case 1:
+                        exportFile(GROUP_FILE.getAbsolutePath());
+                        break;
+                    default:
+                        break;
+                }
+            }
         });
 
     }
