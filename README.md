@@ -1,8 +1,8 @@
 # Contact Management System
 
-This is a **Java Swing application** developed as part of a **university project**. The application demonstrates the implementation of the **Model-View-Controller (MVC)** architectural pattern in a basic contact management system.
-
 ## 📚 Project Description
+
+This is a **Java Swing application** developed as part of a **university project**. The application demonstrates the implementation of the **Model-View-Controller (MVC)** architectural pattern in a basic contact management system.
 
 The Contact Management System allows users to:
 
@@ -33,9 +33,13 @@ This project was developed for academic purposes as part of a **university cours
 
 ## ✅ Status
 
-✅ Completed basic features  
-⬜ Future improvements: data persistence, validation, and more refined UI.
+✅ **Project Completed**  
+This project is fully functional and meets all the requirements specified in the assignment.
 
 ## 🔖 License
 
 This project is for **educational use only**. Not intended for production use.
+
+## 👨‍💻 Credits
+
+**Name:** Fouad Nassif

@@ -77,9 +77,9 @@ public class FileFunctions {
                 }
                 ois.close();
             } catch (FileNotFoundException e) {
-                JOptionPane.showMessageDialog(null, "A error occured while saving1!", "Error Message", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "A error occured while saving!", "Error Message", JOptionPane.ERROR_MESSAGE);
             } catch (IOException e1) {
-                JOptionPane.showMessageDialog(null, "A error occured while saving2!", "Error Message", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "A error occured while saving!", "Error Message", JOptionPane.ERROR_MESSAGE);
             } catch (ClassNotFoundException e) {
             }
         }
@@ -99,9 +99,9 @@ public class FileFunctions {
             oos.close();
             return true;
         } catch (FileNotFoundException e) {
-            JOptionPane.showMessageDialog(null, "A error occured while saving3!", "Error Message", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "A error occured while saving!", "Error Message", JOptionPane.ERROR_MESSAGE);
         } catch (IOException e1) {
-            JOptionPane.showMessageDialog(null, "A error occured while saving4!", "Error Message", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "A error occured while saving!", "Error Message", JOptionPane.ERROR_MESSAGE);
         }
         return false;
     }
@@ -117,9 +117,9 @@ public class FileFunctions {
             oos.close();
             return true;
         } catch (FileNotFoundException e) {
-            JOptionPane.showMessageDialog(null, "A error occured while saving5!", "Error Message", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "A error occured while saving!", "Error Message", JOptionPane.ERROR_MESSAGE);
         } catch (IOException e1) {
-            JOptionPane.showMessageDialog(null, "A error occured while saving6!", "Error Message", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "A error occured while saving!", "Error Message", JOptionPane.ERROR_MESSAGE);
         }
         return false;
     }

@@ -34,8 +34,8 @@ public class NFA035_FouadNassif_2339t {
     public static void main(String[] args) {
         new MainController(new MainView());
         checkAndCreateFiles();
-        // randomContact();
-        // randomGroups();
+        randomContact();
+        randomGroups();
     }
 
     private static void checkAndCreateFiles() {
