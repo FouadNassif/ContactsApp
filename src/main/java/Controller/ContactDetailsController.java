@@ -24,7 +24,10 @@ public class ContactDetailsController {
 
         contactDetailsView.getShareButton().addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                new ShareContactController(new ShareContactView(contactDetailsView.getContact()));
+                ShareContactView view = ShareContactView.getInstance(contactDetailsView.getContact());
+                new ShareContactController(view);
+                view.setVisible(true);
+                view.toFront();
             }
         });
 

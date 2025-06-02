@@ -5,6 +5,7 @@ import javax.swing.*;
 
 public class FileUploadView extends JFrame {
 
+    private static FileUploadView instance;
     private JButton importBtn, exportBtn;
 
     public FileUploadView() {
@@ -29,5 +30,12 @@ public class FileUploadView extends JFrame {
 
     public JButton getExportBtn() {
         return exportBtn;
+    }
+
+    public static FileUploadView getInstance() {
+        if (instance == null || !instance.isDisplayable()) {
+            instance = new FileUploadView();
+        }
+        return instance;
     }
 }

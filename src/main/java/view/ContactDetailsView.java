@@ -10,6 +10,8 @@ import javax.swing.table.DefaultTableModel;
 
 public class ContactDetailsView extends JFrame {
 
+    private static ContactDetailsView instance;
+
     private JLabel groupsLabel;
     private JPanel fieldsPanel, tablePanel, buttonsPanel, allPanel, checkBoxPanel, mainPanel;
     private JTable table;
@@ -110,4 +112,18 @@ public class ContactDetailsView extends JFrame {
     public JButton getShareButton() {
         return shareButton;
     }
+
+    public void setContact(Contact c) {
+        currentContact = c;
+    }
+
+    public static ContactDetailsView getInstance(Contact contact) {
+        if (instance == null || !instance.isDisplayable()) {
+            instance = new ContactDetailsView(contact);
+        } else {
+            instance.setContact(contact);
+        }
+        return instance;
+    }
+
 }

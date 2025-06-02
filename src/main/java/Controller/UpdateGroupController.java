@@ -44,7 +44,6 @@ public class UpdateGroupController {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (fieldName.equals("No groups")) {
-
                     ErrorFunctions.showErrorDialogMessage("Sorry, but you can't edit the Group Name!", "Error Message");
                     return;
                 }

@@ -18,6 +18,7 @@ import javax.swing.table.DefaultTableModel;
 
 public class GroupView extends JFrame {
 
+    private static GroupView instance;
     private JButton addGroupBtn, updateButton, deleteButton;
 
     private JLabel title, title2;
@@ -68,6 +69,8 @@ public class GroupView extends JFrame {
             }
         };
         contactTable = new JTable(contactModel);
+        contactTable.getTableHeader().setReorderingAllowed(false);
+        contactTable.getTableHeader().setResizingAllowed(false);
         contactTable.setFont(new Font("SansSerif", Font.PLAIN, 14));
         contactTable.setRowHeight(20);
         contactTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -141,5 +144,12 @@ public class GroupView extends JFrame {
 
     public DefaultTableModel getContactTableModel() {
         return contactModel;
+    }
+
+    public static GroupView getInstance() {
+        if (instance == null || !instance.isDisplayable()) {
+            instance = new GroupView();
+        }
+        return instance;
     }
 }

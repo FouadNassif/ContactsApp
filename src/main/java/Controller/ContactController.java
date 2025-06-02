@@ -41,14 +41,21 @@ public class ContactController implements Observer {
         renderContacts();
         contactView.getAddNewContactButton().addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                new AddContactController(new AddContactView(), observable);
+                AddContactView view = AddContactView.getInstance();
+                new AddContactController(view, observable);
+                view.setVisible(true);
+                view.toFront();
             }
         });
 
         contactView.getUpdateButton().addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                if (selectedRow != -1) {
-                    new UpdateContactController(new UpdateContactView(selectedContact), observable, selectedRow);
+                if (selectedRow != -1 && !contactView.getTableModel().getValueAt(selectedRow, 0).equals("No Contact Found!")) {
+                    UpdateContactView view = UpdateContactView.getInstance(selectedContact);
+                    new UpdateContactController(view, observable, selectedRow);
+                    view.setVisible(true);
+                    view.toFront();
+
                 } else {
                     ErrorFunctions.showErrorDialogMessage("Please Select A Contact!", "Error Message");
                 }
@@ -106,8 +113,11 @@ public class ContactController implements Observer {
         contactView.getViewButton().addActionListener(new ActionListener() {
 
             public void actionPerformed(ActionEvent e) {
-                if (selectedRow != -1) {
-                    new ContactDetailsController(new ContactDetailsView(selectedContact));
+                if (selectedRow != -1 && !contactView.getTableModel().getValueAt(selectedRow, 0).equals("No Contact Found!")) {
+                    ContactDetailsView view = ContactDetailsView.getInstance(selectedContact);
+                    new ContactDetailsController(view);
+                    view.setVisible(true);
+                    view.toFront();
                 } else {
                     ErrorFunctions.showErrorDialogMessage("Please Select A Contact!", "Error Message");
                 }
@@ -117,15 +127,19 @@ public class ContactController implements Observer {
 
         contactView.getDeleteButton().addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                String selectedContact = TableFunctions.getSelectedRow(contactView.getTable(), "Please select a contact to delete!");
-                if (selectedContact != null) {
-                    JOptionPane optPane = new JOptionPane();
-                    int reponse = optPane.showConfirmDialog(null, "Are you sure you want to delete?", "Comfirm Message", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-                    if (reponse == optPane.YES_OPTION) {
-                        deleteContact();
-                    } else {
-                        optPane.setVisible(false);
+                if (selectedRow != -1 && !contactView.getTableModel().getValueAt(selectedRow, 0).equals("No Contact Found!")) {
+                    String selectedContact = TableFunctions.getSelectedRow(contactView.getTable(), "Please select a contact to delete!");
+                    if (selectedContact != null) {
+                        JOptionPane optPane = new JOptionPane();
+                        int reponse = optPane.showConfirmDialog(null, "Are you sure you want to delete?", "Comfirm Message", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+                        if (reponse == optPane.YES_OPTION) {
+                            deleteContact();
+                        } else {
+                            optPane.setVisible(false);
+                        }
                     }
+                } else {
+                    ErrorFunctions.showErrorDialogMessage("Please Select A Contact!", "Error Message");
                 }
             }
         });

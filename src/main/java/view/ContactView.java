@@ -9,6 +9,8 @@ import javax.swing.table.*;
 
 public class ContactView extends JFrame {
 
+    private static ContactView instance;
+
     private JButton sFNButton, sLNButton, sCityButton, addNewContactButton, viewButton, updateButton, deleteButton;
 
     private JLabel title, inputLabel, title2;
@@ -137,4 +139,10 @@ public class ContactView extends JFrame {
         return searchInput;
     }
 
+    public static ContactView getInstance() {
+        if (instance == null || !instance.isDisplayable()) {
+            instance = new ContactView();
+        }
+        return instance;
+    }
 }

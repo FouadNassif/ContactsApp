@@ -13,6 +13,7 @@ import javax.swing.JPanel;
 
 public class ShareContactView extends JFrame {
 
+    private static ShareContactView instance;
     private JLabel shareLabel;
     private JButton shareButton;
     Contact contact;
@@ -58,5 +59,18 @@ public class ShareContactView extends JFrame {
 
     public Contact getContact() {
         return contact;
+    }
+
+    public void setContact(Contact c) {
+        contact = c;
+    }
+
+    public static ShareContactView getInstance(Contact contact) {
+        if (instance == null || !instance.isDisplayable()) {
+            instance = new ShareContactView(contact);
+        } else {
+            instance.setContact(contact);
+        }
+        return instance;
     }
 }

@@ -20,6 +20,7 @@ import javax.swing.table.DefaultTableModel;
 
 public class UpdateContactView extends JFrame {
 
+    private static UpdateContactView instance;
     private JLabel fnLabel, lnLabel, cityLabel, groupsLabel;
     private JTextField fnField, lnField, cityField;
     private JPanel fnPanel, lnPanel, cityPanel, fieldsPanel, tablePanel, buttonsPanel, allPanel, checkBoxPanel, mainPanel;
@@ -141,5 +142,18 @@ public class UpdateContactView extends JFrame {
 
     public JPanel getCheckBoxPanel() {
         return checkBoxPanel;
+    }
+
+    public void setContact(Contact c) {
+        contact = c;
+    }
+
+    public static UpdateContactView getInstance(Contact contact) {
+        if (instance == null || !instance.isDisplayable()) {
+            instance = new UpdateContactView(contact);
+        } else {
+            instance.setContact(contact);
+        }
+        return instance;
     }
 }

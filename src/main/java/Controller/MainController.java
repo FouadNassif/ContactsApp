@@ -15,18 +15,31 @@ public class MainController {
 
         mainView.getContactButton().addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                new ContactController(new ContactView());
+                ContactView view = ContactView.getInstance();
+                new ContactController(view);
+                view.setVisible(true);
+                view.toFront();
             }
+        });
+
+        mainView.getContactButton().addActionListener(e -> {
+
         });
 
         mainView.getGroupButton().addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                new GroupController(new GroupView());
+                GroupView view = GroupView.getInstance();
+                new GroupController(view);
+                view.setVisible(true);
+                view.toFront();
             }
         });
         mainView.getImpExpButton().addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                new FileUploadController(new FileUploadView());
+                FileUploadView view = FileUploadView.getInstance();
+                new FileUploadController(view);
+                view.setVisible(true);
+                view.toFront();
             }
         });
 

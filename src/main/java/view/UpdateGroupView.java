@@ -16,6 +16,7 @@ import javax.swing.table.DefaultTableModel;
 
 public class UpdateGroupView extends JFrame {
 
+    private static UpdateGroupView instance;
     private JLabel nameLabel, descLabel;
     private JTextField nameField, descField;
 
@@ -107,5 +108,12 @@ public class UpdateGroupView extends JFrame {
 
     public DefaultTableModel getTableModel() {
         return model;
+    }
+
+    public static UpdateGroupView getInstance() {
+        if (instance == null || !instance.isDisplayable()) {
+            instance = new UpdateGroupView();
+        }
+        return instance;
     }
 }

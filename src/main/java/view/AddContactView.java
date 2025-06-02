@@ -12,6 +12,8 @@ import javax.swing.table.*;
 
 public class AddContactView extends JFrame {
 
+    private static AddContactView instance;
+
     private JLabel fnLabel, lnLabel, cityLabel, groupsLabel;
     private JTextField fnField, lnField, cityField;
     private JPanel fnPanel, lnPanel, cityPanel, fieldsPanel, tablePanel, buttonsPanel, allPanel, checkBoxPanel, mainPanel;
@@ -167,6 +169,13 @@ public class AddContactView extends JFrame {
                 }
             });
         }
+    }
+
+    public static AddContactView getInstance() {
+        if (instance == null || !instance.isDisplayable()) {
+            instance = new AddContactView();
+        }
+        return instance;
     }
 
 }

@@ -8,14 +8,14 @@ import javax.swing.table.*;
 
 public class AddGroupView extends JFrame {
 
+    private static AddGroupView instance;
     private JLabel nameLabel, descLabel;
-    private JTextField nameField, descField;
+    private JTextField nameField, descField, searchInput;
 
     private JTable table;
     private DefaultTableModel model;
     private String[] headers = {"Contact Name", "City", "Add to Group"};
     private JButton saveBtn, cancelBtn;
-    private JTextField searchInput;
     JCheckBox selectAll;
     private JPanel field1Panel, field2Panel, btnPanels, usefuelButtonsPanel, mainPanel;
 
@@ -76,7 +76,7 @@ public class AddGroupView extends JFrame {
         mainPanel.add(btnPanels);
 
         add(mainPanel);
-        setTitle("Contact View");
+        setTitle("Add Group");
         setSize(520, 450);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -116,4 +116,10 @@ public class AddGroupView extends JFrame {
         return selectAll;
     }
 
+    public static AddGroupView getInstance() {
+        if (instance == null || !instance.isDisplayable()) {
+            instance = new AddGroupView();
+        }
+        return instance;
+    }
 }

@@ -34,7 +34,10 @@ public class GroupController implements Observer {
         groupView.getAddNewGroupButton().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new AddGroupController(new AddGroupView(), observable);
+                AddGroupView view = AddGroupView.getInstance();
+                new AddGroupController(view, observable);
+                view.setVisible(true);
+                view.toFront();
             }
         });
         groupView.getDeleteButton().addActionListener(new ActionListener() {
@@ -74,7 +77,10 @@ public class GroupController implements Observer {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (selectedRow != - 1) {
-                    new UpdateGroupController(new UpdateGroupView(), observable, groups.get(selectedRow), selectedRow);
+                    UpdateGroupView view = UpdateGroupView.getInstance();
+                    new UpdateGroupController(view, observable, groups.get(selectedRow), selectedRow);
+                    view.setVisible(true);
+                    view.toFront();
                 } else {
                     ErrorFunctions.showErrorDialogMessage("Please Select a group to Delete", "Error Message");
                 }
