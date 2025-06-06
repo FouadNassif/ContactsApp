@@ -209,7 +209,7 @@ public class UpdateContactController {
 
     private void getSelectedGroups() {
         ArrayList<JCheckBox> checkBoxList = updateContactView.getCheckBoxes();
-        if (!checkBoxList.getFirst().isSelected()) {
+        if (checkBoxList.stream().noneMatch(JCheckBox::isSelected)) {
             checkBoxList.getFirst().setSelected(true);
         }
         for (JCheckBox checkBox : checkBoxList) {

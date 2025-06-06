@@ -5,7 +5,6 @@ import Model.Contact;
 import Model.Group;
 import Model.PhoneNumber;
 import UsefulFunctions.FileFunctions;
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
@@ -68,7 +67,7 @@ public class NFA035_FouadNassif_2339t {
             }
             temp.add(newContact);
         }
-        FileFunctions.saveToFile(temp, new File("Contacts.obj"));
+        FileFunctions.saveToFile(temp, GlobalVariables.CONTACT_FILE);
     }
 
     private static void randomGroups() {

@@ -20,6 +20,7 @@ public class FileUploadView extends JFrame {
         setTitle("Import / Export Contacts & Groups");
         setSize(400, 200);
         setLocationRelativeTo(null);
+        setResizable(false);
         setVisible(true);
 
     }

@@ -147,7 +147,7 @@ public class AddContactController {
 
             private void getSelectedGroups() {
                 ArrayList<JCheckBox> checkBoxList = addContactView.getCheckBoxes();
-                if (!checkBoxList.getFirst().isSelected()) {
+                if (checkBoxList.stream().noneMatch(JCheckBox::isSelected)) {
                     checkBoxList.getFirst().setSelected(true);
                 }
                 for (JCheckBox checkBox : checkBoxList) {
@@ -155,7 +155,6 @@ public class AddContactController {
                         groups.get(checkBoxList.indexOf(checkBox)).addContact(newContact);
                     }
                 }
-
                 FileFunctions.saveToFileGroup(groups, groupsFile);
             }
         }
